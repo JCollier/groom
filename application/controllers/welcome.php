@@ -25,6 +25,10 @@ class Welcome extends CI_Controller {
     public function test( $param ) {
       echo $param;
     }
+
+    public function login( $username ) {
+      echo $param;
+    }   
 }
 
 /* End of file welcome.php */
