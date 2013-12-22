@@ -5,6 +5,7 @@
     </head>
     <body>
         <div>
+            <a href="#">Login</a>
 <!--             <h1>Simple Login with CodeIgniter</h1> -->
             <?php echo validation_errors(); ?>
             <?php echo form_open('verifylogin'); ?>
