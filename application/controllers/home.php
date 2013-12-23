@@ -12,8 +12,8 @@ class Home extends CI_Controller {
  {
     if($this->session->userdata('logged_in')) {
         $session_data = $this->session->userdata('logged_in');
-        $data['username'] = $session_data['username'];
-
+        $data['username']   = $session_data['username'];
+        $data['userid']     = $session_data['id'];
 
         $data['assets'] = $this->template->loadAssets(  array(
                                                         array(  'css' => array( 'main', 'global' ) ),

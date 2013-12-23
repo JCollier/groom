@@ -2,23 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <script type="text/javascript">
         // document.getElementsByTagName("head")[0].appendChild(script);
-        console.log( 'testJS!' );
+        console.log( 'testJS!' ); 
     </script>
 
  <head>
-   <title>Simple Login with CodeIgniter - Private Area</title>
-   <?php
+   <title>Home</title>
+<!--    <?php
         foreach( $assets as $asset ) {
             var_export( $asset );
 
             //echo( '<link rel="stylesheet" type="text/css" href="' . $asset . '">' );
         }
-   ?>
+    ?> -->
    <!-- <link rel="stylesheet" type="text/css" href="mystyle.css"> -->
  </head>
  <body>
-   <h1>Home</h1>
-   <h2>Welcome <?php echo $username; ?>!</h2>
+   <h2>userid: <?php echo $userid; ?></h2>
+   <h2>Username: <?php echo $username; ?></h2>
    <a href="home/logout">Logout</a>
  </body>
 </html>
