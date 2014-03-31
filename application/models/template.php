@@ -55,6 +55,55 @@ Class Template extends CI_Model {
 
         return true;
     }
+
+    public function _getHeaderLinks( $page_type = null ) {
+        if( isset( $page_type ) ) {
+            if( $page_type == 'home' ) {
+                $links_header = array(
+                  array( 
+                    'url'   => 'home/social',
+                    'label' => 'Community' ), 
+                  array( 
+                    'url'   => 'home/info',
+                    'label' => 'How It Works' ), 
+                  array( 
+                    'url'   => 'home/gifts',
+                    'label' => 'Profile' ), 
+                  array( 
+                    'url'   => 'home/account',
+                    'label' => 'My Account' ), 
+                  array( 
+                    'url'   => 'home/logout',
+                    'label' => 'Logout' )
+                );
+            }
+
+            return $links_header;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function _getFooterLinks( $page_type = null ) {
+        if( isset( $page_type ) ) {
+            if( $page_type == 'home' ) {
+                $links_header = array(
+                  array( 
+                    'url'   => 'about',
+                    'label' => 'About Us' ), 
+                  array( 
+                    'url'   => 'contact',
+                    'label' => 'Contact Us' ), 
+                );
+            }
+
+            return $links_header;
+        }
+        else {
+            return false;
+        }
+    }
 }
 ?>
 

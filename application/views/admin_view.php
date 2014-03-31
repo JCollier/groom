@@ -17,30 +17,17 @@
    <!-- <link rel="stylesheet" type="text/css" href="mystyle.css"> -->
  </head>
  <body>
+   <h2>userid: <?php echo $userid; ?></h2>
+   <h2>Username: <?php echo $username; ?></h2>
 
-    <br>
-    Header Links:
+  <div>
+    <a href="admin/administration">Administration</a>
+    <a href="admin/reporting">Reporting</a>
+    <a href="admin/templating">Templating</a>
+  </div>
 
-    <?php 
-        foreach( $links_header as $link ) {
-            echo( '<a href="' . $link['url'] . '">' . $link['label'] . '</a> ' );
-        }
-    ?>
-    <br>
-
-    <h2>Userid: <?php echo $userid; ?></h2>
-    <h2>Username: <?php echo $username; ?></h2>
-
-    <br>
-
-    Footer Links:
-
-    <?php 
-        foreach( $links_footer as $link ) {
-            echo( '<a href="' . $link['url'] . '">' . $link['label'] . '</a> ' );
-        }
-    ?>
-
-</body>
+   <a href="home/logout">Logout</a>
+ </body>
 </html>
+
 

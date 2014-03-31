@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="Index">
+            <directory>/home/deploy/lavaa/tests/phpunit/groom/</directory>
+        </testsuite>
+        <testsuite name="Application">
+            <directory>./phpunit/groom/application</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
+

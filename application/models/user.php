@@ -55,7 +55,50 @@
             else {
                 return false;
             }
-        }                
+        }
+
+        function getUserDataById( $id, $params = array() ) {
+
+
+
+            // $this -> db -> select( 'id, username, password' );
+            // $this -> db -> from( 'users' );
+            // $this -> db -> where( 'id', $id );
+            // $this -> db -> limit( 1 );
+
+            // $query = $this -> db -> get();
+
+            // if( $query -> num_rows() == 1 ) {
+            //     var_dump( $query->result() );
+
+            //     //return $query->result();
+            // }
+
+            $sql =  " SELECT `usertype` FROM groom_common.users WHERE " .
+                      " `id`='${id}'" .
+                      ";";
+
+            $userdata = $this->db->query( $sql )->result_array();
+
+            return $userdata[0];
+        }
+
+        function getUsertypeById( $id ) {
+            $userdata = $this->getUserDataById( $id );
+
+            return $userdata['usertype'];
+        }
+
+        function isUserAdmin( $id ) {
+            $usertype = $this->getUsertypeById( $id );
+
+            if( $usertype == 'useradmin' ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
 ?>
 
