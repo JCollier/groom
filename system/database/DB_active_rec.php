@@ -2039,6 +2039,57 @@ class CI_DB_active_record extends CI_DB_driver {
 
 		$this->_reset_run($ar_reset_items);
 	}
+
+	public function loadInits( $page = null ) {
+        $sql =  " SELECT `page`,`section`,`key`,`value` " . 
+        		" FROM groom_common.inits WHERE " .
+                  " `page`='${page}'" .
+                  ";";
+
+        $inits = $this->query( $sql )->result_array();
+
+        // die();
+
+      //   if( !empty( $inits ) ) {
+	    	// $this->ini->{$page} = $this->_getInitArray( $inits );
+
+	    	// return true;
+      //   }
+      //   else {
+      //   	return false;
+      //   }
+
+        if( !empty( $inits ) ) {
+	    	return $this->_getInitArray( $inits );
+        }
+        else {
+        	return null;
+        }
+	}
+
+	protected function _getInitArray( $inits = null ) {
+		if( is_array( $inits ) ) {
+	        $section_array = array();
+
+	        foreach( $inits as $init ) {
+	        	if( !empty( $init['section'] ) && !empty( $init['key'] ) ) {
+		        	$section 	= $init['section'];
+		        	$key 		= $init['key'];
+
+		        	if( empty( $section_array[$section] ) ) {
+		        		$section_array[$section] = array();
+		        	}
+
+		        	$section_array[$section][$key] = $init['value'];
+	        	}
+	        }
+	        
+	        return $section_array;
+		}
+		else {
+			return null;
+		}
+	}
 }
 
 /* End of file DB_active_rec.php */

@@ -56,9 +56,32 @@ Class Template extends CI_Model {
         return true;
     }
 
-    public function _getHeaderLinks( $page_type = null ) {
-        if( isset( $page_type ) ) {
-            if( $page_type == 'home' ) {
+    public function _getHeaderLinksFromConfig( $page = null ) {
+        if( !empty( $this->ini->{$page} ) && 
+            !empty( $this->ini->{$page}['template'] ) && 
+            !empty( $this->ini->{$page}['template']['header_links'] ) ) {
+            return $this->ini->{$page}['template']['header_links'];
+        }
+        else {
+            return $this->ini->default['template']['header_links'];
+        }
+    }
+
+    public function _getHeaderLinks( $page = null ) {
+       $config = $this->_getHeaderLinksFromConfig( $page );
+
+       //var_dump( $config );
+
+        if( isset( $page ) ) {
+            if( $page == 'home' ) {
+                $links_array = array(
+                    'view_social',
+                    'view_info',
+                    'view_gifts',
+                    'view_account',
+                    'view_logout'
+                );
+
                 $links_header = array(
                   array( 
                     'url'   => 'home/social',

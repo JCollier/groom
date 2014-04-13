@@ -5,6 +5,10 @@ class Home extends CI_Controller {
  function __construct()
  {
    parent::__construct();
+
+   $this->ini->default  = $this->db->loadInits( 'default' );
+   $this->ini->home     = $this->db->loadInits( 'home' );
+
    $this->load->model('template','',TRUE);
  }
 
@@ -23,6 +27,7 @@ class Home extends CI_Controller {
 
 
         $data['head'] = '<head>test header</head>';
+
         $data['links_header'] = $this->template->_getHeaderLinks( 'home' );
         $data['links_footer'] = $this->template->_getFooterLinks( 'home' );
 

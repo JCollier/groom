@@ -1403,7 +1403,6 @@ class CI_DB_driver {
 	protected function _reset_select()
 	{
 	}
-
 }
 
 /* End of file DB_driver.php */
