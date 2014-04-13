@@ -2040,6 +2040,55 @@ class CI_DB_active_record extends CI_DB_driver {
 		$this->_reset_run($ar_reset_items);
 	}
 
+	protected function _buildPageConfigArray( $pages = null ) {
+		$page_config = array();
+
+		foreach( $pages as $page ) {
+			if( !empty( $page['page'] ) && 
+				!empty( $page['path'] ) && 
+				!empty( $page['label'] ) && 
+				( !empty( $page['position'] ) || $page['position'] == '0') ) {
+
+				$page_page = $page['page'];
+
+				$page_config[$page_page] = array( 
+					'page' 		=> $page_page,
+					'path' 		=> $page['path'],
+					'label' 	=> $page['label'],
+					'position' 	=> $page['position']
+				);
+			}
+		}
+
+		if( !empty( $page_config ) ) {
+			return $page_config;
+		}
+		else {
+			return null;
+		}
+
+		return null;
+	}
+
+	public function loadPageConfig( $permissions = 0 ) {
+		$permissions = 5;
+
+        $sql =  " SELECT `page`,`path`,`label`,`position` " . 
+        		" FROM groom_common.pages " .
+        		" WHERE `enable`='1' AND `permissions`<={$permissions}" . 
+        		" ORDER BY `position` " .
+                ";";
+
+        $pages = $this->query( $sql )->result_array();
+
+        if( !empty( $pages ) ) {
+        	return $this->_buildPageConfigArray( $pages );
+        }
+        else {
+        	return null;
+        }
+	}
+
 	public function loadInits( $page = null ) {
         $sql =  " SELECT `page`,`section`,`key`,`value` " . 
         		" FROM groom_common.inits WHERE " .
@@ -2083,7 +2132,7 @@ class CI_DB_active_record extends CI_DB_driver {
 		        	$section_array[$section][$key] = $init['value'];
 	        	}
 	        }
-	        
+
 	        return $section_array;
 		}
 		else {

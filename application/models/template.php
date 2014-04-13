@@ -56,76 +56,70 @@ Class Template extends CI_Model {
         return true;
     }
 
-    public function _getHeaderLinksFromConfig( $page = null ) {
+    protected function _getLinksFromConfig( $page = null, $type = 'footer' ) {
+        $name = $type . '_links';
+
         if( !empty( $this->ini->{$page} ) && 
             !empty( $this->ini->{$page}['template'] ) && 
-            !empty( $this->ini->{$page}['template']['header_links'] ) ) {
-            return $this->ini->{$page}['template']['header_links'];
+            !empty( $this->ini->{$page}['template'][$name] ) ) {
+
+            return $this->ini->{$page}['template'][$name];
         }
         else {
-            return $this->ini->default['template']['header_links'];
+            return $this->ini->default['template'][$name];
         }
     }
 
-    public function _getHeaderLinks( $page = null ) {
-       $config = $this->_getHeaderLinksFromConfig( $page );
-
-       //var_dump( $config );
-
+    public function getHeaderLinks( $page = null ) {
         if( isset( $page ) ) {
-            if( $page == 'home' ) {
-                $links_array = array(
-                    'view_social',
-                    'view_info',
-                    'view_gifts',
-                    'view_account',
-                    'view_logout'
-                );
+            $links_array = explode( ",", $this->_getLinksFromConfig( $page, 'header' ) );
 
-                $links_header = array(
-                  array( 
-                    'url'   => 'home/social',
-                    'label' => 'Community' ), 
-                  array( 
-                    'url'   => 'home/info',
-                    'label' => 'How It Works' ), 
-                  array( 
-                    'url'   => 'home/gifts',
-                    'label' => 'Profile' ), 
-                  array( 
-                    'url'   => 'home/account',
-                    'label' => 'My Account' ), 
-                  array( 
-                    'url'   => 'home/logout',
-                    'label' => 'Logout' )
-                );
+            $links_header = array();
+
+            foreach( $this->page as $key => $page_data ) {
+                $page_name = $page_data['page'];
+
+                if( in_array( $page_data['page'], $links_array ) ) {
+                    $links_header[] = array(
+                        'page'      => $page_name,
+                        'url'       => $this->page[$page_name]['path'],
+                        'label'     => $this->page[$page_name]['label'],
+                    );
+                }
             }
 
-            return $links_header;
+            if( !empty( $links_header ) ) {
+                return $links_header;
+            }
         }
-        else {
-            return false;
-        }
+
+        return array( array( 'url' => 'home/logout', 'label' => 'logout' ) );
     }
 
-    public function _getFooterLinks( $page_type = null ) {
-        if( isset( $page_type ) ) {
-            if( $page_type == 'home' ) {
-                $links_header = array(
-                  array( 
-                    'url'   => 'about',
-                    'label' => 'About Us' ), 
-                  array( 
-                    'url'   => 'contact',
-                    'label' => 'Contact Us' ), 
-                );
+    public function getFooterLinks( $page_type = null ) {
+        if( isset( $page ) ) {
+            $links_array = explode( ",", $this->_getLinksFromConfig( $page, 'footer' ) );
+
+            $links_header = array();
+
+            foreach( $this->page as $key => $page_data ) {
+                $page_name = $page_data['page'];
+
+                if( in_array( $page_data['page'], $links_array ) ) {
+                    $links_header[] = array(
+                        'page'      => $page_name,
+                        'url'       => $this->page[$page_name]['path'],
+                        'label'     => $this->page[$page_name]['label'],
+                    );
+                }
             }
 
-            return $links_header;
+            if( !empty( $links_header ) ) {
+                return $links_header;
+            }
         }
-        else {
-            return false;
-        }
+
+        return array( array( 'url' => 'home/logout', 'label' => 'logout' ) );
     }
 }
 ?>

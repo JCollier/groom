@@ -6,10 +6,12 @@ class Home extends CI_Controller {
  {
    parent::__construct();
 
+   $this->page = $this->db->loadPageConfig();
+
    $this->ini->default  = $this->db->loadInits( 'default' );
    $this->ini->home     = $this->db->loadInits( 'home' );
 
-   $this->load->model('template','',TRUE);
+   $this->load->model( 'template', '', TRUE );
  }
 
  function index()
@@ -28,8 +30,8 @@ class Home extends CI_Controller {
 
         $data['head'] = '<head>test header</head>';
 
-        $data['links_header'] = $this->template->_getHeaderLinks( 'home' );
-        $data['links_footer'] = $this->template->_getFooterLinks( 'home' );
+        $data['links_header'] = $this->template->getHeaderLinks( 'home' );
+        $data['links_footer'] = $this->template->getFooterLinks( 'home' );
 
         $this->load->view( 'home_view', $data );
     }
