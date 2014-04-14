@@ -358,8 +358,10 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['css_path']     = $config['base_url']   . 'htdocs/assets/css/';
-$config['css_global']   = $config['css_path']   . 'global.css';
+$config['css_path']             = $config['base_url']   . 'htdocs/assets/css/';
+$config['css_global']           = $config['css_path']   . 'global.css';
+$config['css_bootstrap']        = $config['css_path']   . 'bootstrap.css';
+$config['css_bootstrap_theme']  = $config['css_path']   . 'bootstrap-theme.css';
 
 $config['image_path']               = $config['base_url']   . 'htdocs/assets/images/';
 $config['image_profile_default']    = $config['image_path'] . '90.jpeg';

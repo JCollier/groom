@@ -774,7 +774,7 @@ pre code {
   float: left;
 }
 .col-xs-12 {
-  width: 100%;
+  width: 100% !important;
 }
 .col-xs-11 {
   width: 91.66666667%;
@@ -3642,7 +3642,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
