@@ -5,7 +5,13 @@ class Home extends CI_Controller {
  function __construct()
  {
    parent::__construct();
-   $this->load->model('template','',TRUE);
+
+   $this->page = $this->db->loadPageConfig();
+
+   $this->ini->default  = $this->db->loadInits( 'default' );
+   $this->ini->home     = $this->db->loadInits( 'home' );
+
+   $this->load->model( 'template', '', TRUE );
  }
 
  function index()
@@ -21,8 +27,13 @@ class Home extends CI_Controller {
                                                     )
                                                 );
 
+        $data['base_url']             = $this->config->config['base_url'];
+        $data['image_path']           = $this->config->config['image_path'];
+        $data['js_path']['global']    = $this->config->config['js_global'];
+        $data['css_path']['global']   = $this->config->config['css_global'];
 
-        $data['head'] = '<head>test header</head>';
+        $data['links_header'] = $this->template->getHeaderLinks( 'home' );
+        $data['links_footer'] = $this->template->getFooterLinks( 'home' );
 
         $this->load->view( 'home_view', $data );
     }

@@ -55,7 +55,34 @@
             else {
                 return false;
             }
-        }                
+        }
+
+        function getUserDataById( $id, $params = array() ) {
+            $sql =  " SELECT `usertype` FROM groom_common.users WHERE " .
+                      " `id`='${id}'" .
+                      ";";
+
+            $userdata = $this->db->query( $sql )->result_array();
+
+            return $userdata[0];
+        }
+
+        function getUsertypeById( $id ) {
+            $userdata = $this->getUserDataById( $id );
+
+            return $userdata['usertype'];
+        }
+
+        function isUserAdmin( $id ) {
+            $usertype = $this->getUsertypeById( $id );
+
+            if( $usertype == 'admin' ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
 ?>
 

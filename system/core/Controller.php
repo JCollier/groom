@@ -43,6 +43,9 @@ class CI_Controller {
 		// so that CI can run as one big super object.
 		foreach (is_loaded() as $var => $class)
 		{
+			// echo getCallStack();
+			// var_dump( $var );
+
 			$this->$var =& load_class($class);
 		}
 
