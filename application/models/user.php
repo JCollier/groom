@@ -58,22 +58,6 @@
         }
 
         function getUserDataById( $id, $params = array() ) {
-
-
-
-            // $this -> db -> select( 'id, username, password' );
-            // $this -> db -> from( 'users' );
-            // $this -> db -> where( 'id', $id );
-            // $this -> db -> limit( 1 );
-
-            // $query = $this -> db -> get();
-
-            // if( $query -> num_rows() == 1 ) {
-            //     var_dump( $query->result() );
-
-            //     //return $query->result();
-            // }
-
             $sql =  " SELECT `usertype` FROM groom_common.users WHERE " .
                       " `id`='${id}'" .
                       ";";

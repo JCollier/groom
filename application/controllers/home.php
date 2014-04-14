@@ -27,12 +27,9 @@ class Home extends CI_Controller {
                                                     )
                                                 );
 
-        $data['base_url']           = $this->config->config['base_url'];
-
-        $data['image_path']  = $this->config->config['image_path'];
-
+        $data['base_url']             = $this->config->config['base_url'];
+        $data['image_path']           = $this->config->config['image_path'];
         $data['js_path']['global']    = $this->config->config['js_global'];
-
         $data['css_path']['global']   = $this->config->config['css_global'];
 
         $data['links_header'] = $this->template->getHeaderLinks( 'home' );

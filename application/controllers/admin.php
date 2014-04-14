@@ -6,7 +6,6 @@ class Admin extends CI_Controller {
  {
     parent::__construct();
 
-    //$this->load->library( 'js_global' );
     $this->load->model( 'user', '', TRUE );
 
     $this->page = $this->db->loadPageConfig();
@@ -14,7 +13,7 @@ class Admin extends CI_Controller {
     $this->ini->default  = $this->db->loadInits( 'default' );
     $this->ini->admin    = $this->db->loadInits( 'admin' );
 
-    $this->load->model('template','',TRUE);
+    $this->load->model( 'template', '', TRUE );
 
  }
 
@@ -31,7 +30,7 @@ class Admin extends CI_Controller {
     if( $this->session->userdata( 'logged_in' ) ) {
         if( $this->user->isUserAdmin( $user_id ) ) {
             $data['base_url']       = $this->config->config['base_url'];
-            
+            $data['js_global']      = $this->config->config['js_global'];
             $data['assets']         = $this->_getAdminViewByType( 'assets' );
             $data['head']           = $this->_getAdminViewByType( 'head' );
             $data['links_header']   = $this->_getAdminViewByType( 'links_header' );
@@ -63,25 +62,13 @@ class Admin extends CI_Controller {
             default:
                 return null;
         }
-
-        // $data['assets'] = $this->template->loadAssets( array(
-        //                                             array( 'css' => array( 'main', 'global' ) ),
-        //                                             array( 'jpg' => array( 'sprite_global' ) ),
-        //                                         )
-        //                                     );
-
-        // $data['head'] = '<head>test header</head>';
-
-        // $data['links_header'] = $this->template->getHeaderLinks( 'admin' );
     }
 
- function logout()
- {
-   $this->session->unset_userdata('logged_in');
-   session_destroy();
-   redirect('home', 'refresh');
- }
-
+    function logout() {
+        $this->session->unset_userdata( 'logged_in' );
+        session_destroy();
+        redirect( 'home', 'refresh' );
+    }
 }
 
 ?>

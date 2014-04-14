@@ -358,17 +358,15 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-// $config['image_path']	 	= $config['base_url'] 	. 'system/assets/javascript/';
-// $config['css_path'] 		= $config['base_url'] 	. 'system/assets/javascript/';
+$config['css_path'] 	= $config['base_url'] 	. 'htdocs/assets/css/';
+$config['css_global'] 	= $config['css_path'] 	. 'global.css';
 
-$config['css_path'] 	= $config['base_url'] . 'htdocs/assets/css/';
-$config['image_path'] 	= $config['base_url'] . 'htdocs/assets/images/';
-$config['js_path'] 		= $config['base_url'] . 'htdocs/assets/javascript/';
-
-$config['css_global'] 				= $config['css_path'] 	. 'global.css';
-
-$config['js_global'] 				= $config['js_path'] 	. 'global.js';
+$config['image_path'] 				= $config['base_url'] 	. 'htdocs/assets/images/';
 $config['image_profile_default'] 	= $config['image_path'] . '90.jpeg';
+
+$config['js_path'] 		= $config['base_url'] 	. 'htdocs/assets/javascript/';
+$config['js_global'] 	= $config['js_path'] 	. 'global.js';
+
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

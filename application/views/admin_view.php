@@ -6,10 +6,6 @@
     </script>
 
     <?php echo( '<script src="' . $base_url . 'htdocs/assets/javascript/global.js' . '"></script>'); ?>
-
-    <?php echo 'test_head'; ?><br>
-
-
  <head>
    <title>Home</title>
 <!--    <?php
