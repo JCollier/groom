@@ -2097,8 +2097,6 @@ class CI_DB_active_record extends CI_DB_driver {
 
         $inits = $this->query( $sql )->result_array();
 
-        // die();
-
       //   if( !empty( $inits ) ) {
 	    	// $this->ini->{$page} = $this->_getInitArray( $inits );
 

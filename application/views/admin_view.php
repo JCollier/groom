@@ -5,6 +5,11 @@
         console.log( 'testJS!' ); 
     </script>
 
+    <?php echo( '<script src="' . $base_url . 'htdocs/assets/javascript/global.js' . '"></script>'); ?>
+
+    <?php echo 'test_head'; ?><br>
+
+
  <head>
    <title>Home</title>
 <!--    <?php
@@ -17,16 +22,21 @@
    <!-- <link rel="stylesheet" type="text/css" href="mystyle.css"> -->
  </head>
  <body>
-   <h2>userid: <?php echo $userid; ?></h2>
-   <h2>Username: <?php echo $username; ?></h2>
+   userid: <?php echo $userid; ?><br>
+   Username: <?php echo $username; ?><br>
 
-  <div>
-    <a href="admin/administration">Administration</a>
-    <a href="admin/reporting">Reporting</a>
-    <a href="admin/templating">Templating</a>
-  </div>
+    <?php echo( '<img src="' . $base_url . 'htdocs/assets/images/90.jpeg' . '">'); ?>
 
-   <a href="home/logout">Logout</a>
+
+    <br>
+    Header Links:
+
+    <?php 
+        foreach( $links_header as $link ) {
+            echo( '<a href="' . $link['url'] . '">' . $link['label'] . '</a> ' );
+        }
+    ?>
+    <br>
  </body>
 </html>
 

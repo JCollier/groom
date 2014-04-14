@@ -96,7 +96,7 @@ Class Template extends CI_Model {
         return array( array( 'url' => 'home/logout', 'label' => 'logout' ) );
     }
 
-    public function getFooterLinks( $page_type = null ) {
+    public function getFooterLinks( $page = null ) {
         if( isset( $page ) ) {
             $links_array = explode( ",", $this->_getLinksFromConfig( $page, 'footer' ) );
 

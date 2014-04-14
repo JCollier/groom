@@ -92,7 +92,7 @@
         function isUserAdmin( $id ) {
             $usertype = $this->getUsertypeById( $id );
 
-            if( $usertype == 'useradmin' ) {
+            if( $usertype == 'admin' ) {
                 return true;
             }
             else {
