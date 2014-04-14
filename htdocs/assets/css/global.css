@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+}
+
+#global-main-div {
+    background-color: red;
+    border: 1px;
+}
+
+.bg-color-red {
+    background-color: red;
+}
+
+.bg-color-gray {
+    background-color: #d9d9d9;
+}
+
+.bg-color-blue-s {
+    background-color: #6666ff;
+}
+
+.width-full {
+    width:100%;
+}
+
+.height-header {
+    height: 40px;
+}
+
+.height-footer {
+    height: 20px;
+}
+
+.height-360 {
+    height: 360px;
+}
+
+.height-container-home {
+    height: 360px;
+}
+
+.pos-float-left {
+    float: left;
+}
+
+.pos-float-right {
+    float: right;
+}
