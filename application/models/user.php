@@ -83,6 +83,24 @@
                 return false;
             }
         }
+
+        public function listUsersFromParams( $page, $limit, $order = 'id' ) {
+            if( $limit > 1000 ) {
+                echo( '' );
+            }
+            else {
+                $offset = ( intval( $page ) - 1 ) * intval( $limit );
+
+                $sql =  " SELECT * FROM groom_common.users" . 
+                        " LIMIT ${offset},${limit};";
+
+                return $this->db->query( $sql )->result_array();
+            }
+        }
+
+        public function returnUsers() {
+            return 'testing ajax returnUsers() function';
+        }
     }
 ?>
 
