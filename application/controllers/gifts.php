@@ -8,6 +8,9 @@ class Gifts extends CI_Controller {
 
    $this->page = $this->db->loadPageConfig();
 
+   $this->load->model( 'user', '', TRUE );
+   $this->load->model( 'items', '', TRUE );
+
    $this->ini->default  = $this->db->loadInits( 'default' );
    $this->ini->home     = $this->db->loadInits( 'home' );
 
@@ -36,9 +39,13 @@ class Gifts extends CI_Controller {
         $data['css_path']['bootstrap']          = $this->config->config['css_bootstrap'];
         $data['css_path']['bootstrap_theme']    = $this->config->config['css_bootstrap_theme'];
 
-        $data['links_header'] = $this->template->getHeaderLinks( 'home' );
+        $level = $this->user->getUserLevelById( $data['userid'] );
+
+        $data['links_header'] = $this->template->getHeaderLinks( 'home', $level );
         $data['links_footer'] = $this->template->getFooterLinks( 'home' );
         
+        $data['item_count'] = intval( $this->items->getUsersItemCount( $data['userid'] ) );
+
         foreach( $data as $key => $param ) {
           $this->twiggy->set( $key, $param );
         }

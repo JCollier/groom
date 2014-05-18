@@ -1,0 +1,18 @@
+{% block content %}
+    Test rendering of user items blocks
+
+    <div>
+    {% for item in items %}
+        <div class="col-xs-{{item.item.display.span}}" style="border:1px solid black; height:{{ item.item.display.height }}px;">
+            <div style="height: 100%; width:100%; padding-top:12px; padding-bottom:12px; padding-left:0px; padding-right:0px;">
+                <div><img style="display:block; margin:auto;" width="{{ item.image.display.width }}" height="{{ item.image.display.height }}" src="{{ item.href }}"></div>
+                <div style="display:block; margin:auto;">
+                    <div>{{ item.description_1 }}</div>
+                    <div>{{ item.description_2 }}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

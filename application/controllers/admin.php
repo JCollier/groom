@@ -33,7 +33,10 @@ class Admin extends CI_Controller {
             $data['js_global']      = $this->config->config['js_global'];
             $data['assets']         = $this->_getAdminViewByType( 'assets' );
             $data['head']           = $this->_getAdminViewByType( 'head' );
-            $data['links_header']   = $this->_getAdminViewByType( 'links_header' );
+
+            $level = $this->user->getUserLevelById( $data['userid'] );
+
+            $data['links_header']   = $this->_getAdminViewByType( 'links_header', $level );
 
             $this->load->view( 'admin_view', $data );
         }
@@ -47,7 +50,9 @@ class Admin extends CI_Controller {
    }
  }
 
-    protected function _getAdminViewByType( $type = null ) {
+    protected function _getAdminViewByType( $type = null, $level = 0 ) {
+        var_dump( $level );
+
         switch ( $type ) {
             case 'assets':
                 return $this->template->loadAssets( array(
@@ -58,7 +63,7 @@ class Admin extends CI_Controller {
             case 'head':
                 return '<head>test header</head>';
             case 'links_header':
-                return $this->template->getHeaderLinks( 'admin' );
+                return $this->template->getHeaderLinks( 'admin', $level );
             default:
                 return null;
         }

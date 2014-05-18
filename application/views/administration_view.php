@@ -90,6 +90,7 @@
         <a onclick="getUsers( 3, 5, 'id' );"><u>3</u></a>
         <a onclick="getUsers( 4, 5, 'id' );"><u>4</u></a>
     </div>
+    
     <div id="var-getusers-limit" style="display:none">5</div>
     <div id="var-getusers-order" style="display:none">id</div>
 

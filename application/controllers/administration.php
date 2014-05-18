@@ -42,11 +42,12 @@ class Administration extends CI_Controller {
 
             $data['assets']         = $this->_getAdminViewByType( 'assets' );
             $data['head']           = $this->_getAdminViewByType( 'head' );
-            $data['links_header']   = $this->_getAdminViewByType( 'links_header' );
+            
+            $level = $this->user->getUserLevelById( $data['userid'] );
 
+            $data['links_header'] = $this->_getAdminViewByType( 'links_header', $level );
+                    
             $data['users'] = $this->user->listUsersFromParams( 1, 5 );
-
-            //var_dump( $data['users'] );
 
             $this->load->view( 'administration_view', $data );
         }
@@ -60,7 +61,7 @@ class Administration extends CI_Controller {
    }
  }
 
-    protected function _getAdminViewByType( $type = null ) {
+    protected function _getAdminViewByType( $type = null, $level = 0 ) {
         switch ( $type ) {
             case 'assets':
                 return $this->template->loadAssets( array(
@@ -71,7 +72,7 @@ class Administration extends CI_Controller {
             case 'head':
                 return '<head>test header</head>';
             case 'links_header':
-                return $this->template->getHeaderLinks( 'admin' );
+                return $this->template->getHeaderLinks( 'admin', $level );
             default:
                 return null;
         }
