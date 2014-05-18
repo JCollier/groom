@@ -53,13 +53,6 @@
    <!-- <link rel="stylesheet" type="text/css" href="mystyle.css"> -->
  </head>
  <body>
-   userid: <?php echo $userid; ?><br>
-   Username: <?php echo $username; ?><br>
-
-    <?php echo( '<img src="' . $base_url . 'htdocs/assets/images/90.jpeg' . '">'); ?>
-
-
-    <br>
     Header Links:
 
     <?php 
@@ -67,6 +60,14 @@
             echo( '<a href="' . $link['url'] . '">' . $link['label'] . '</a> ' );
         }
     ?>
+    <br>
+
+    userid: <?php echo $userid; ?><br>
+    Username: <?php echo $username; ?><br>
+
+    <?php echo( '<img src="' . $base_url . 'htdocs/assets/images/90.jpeg' . '">'); ?>
+
+
     <br>
 
 <!--     array (size=8)
