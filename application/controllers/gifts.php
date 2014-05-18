@@ -1,14 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 session_start(); //we need to call PHP's session object to access it through CI
-class Home extends CI_Controller {
+class Gifts extends CI_Controller {
 
  function __construct()
  {
    parent::__construct();
 
    $this->page = $this->db->loadPageConfig();
-
-   $this->load->model( 'user', '', TRUE );
 
    $this->ini->default  = $this->db->loadInits( 'default' );
    $this->ini->home     = $this->db->loadInits( 'home' );
@@ -38,18 +36,16 @@ class Home extends CI_Controller {
         $data['css_path']['bootstrap']          = $this->config->config['css_bootstrap'];
         $data['css_path']['bootstrap_theme']    = $this->config->config['css_bootstrap_theme'];
 
-        $level = $this->user->getUserLevelById( $data['userid'] );
-
-        $data['links_header'] = $this->template->getHeaderLinks( 'home', $level );
+        $data['links_header'] = $this->template->getHeaderLinks( 'home' );
         $data['links_footer'] = $this->template->getFooterLinks( 'home' );
-
+        
         foreach( $data as $key => $param ) {
           $this->twiggy->set( $key, $param );
         }
 
-        $data['template'] = $this->twiggy->template('home')->display();
+        $data['template'] = $this->twiggy->template('gifts')->display();
 
-        $this->load->view( 'home_view', $data );
+        $this->load->view( 'gifts_view', $data );
     }
     else {
      //If no session, redirect to login page

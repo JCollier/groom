@@ -2052,10 +2052,12 @@ class CI_DB_active_record extends CI_DB_driver {
 				$page_page = $page['page'];
 
 				$page_config[$page_page] = array( 
-					'page' 		=> $page_page,
-					'path' 		=> $page['path'],
-					'label' 	=> $page['label'],
-					'position' 	=> $page['position']
+					'page' 			=> $page_page,
+					'path' 			=> $page['path'],
+					'label' 		=> $page['label'],
+					'position' 		=> $page['position'],
+					'enable' 		=> $page['enable'],
+					'permissions' 	=> $page['permissions']
 				);
 			}
 		}
@@ -2070,12 +2072,10 @@ class CI_DB_active_record extends CI_DB_driver {
 		return null;
 	}
 
-	public function loadPageConfig( $permissions = 0 ) {
-		$permissions = 5;
-
-        $sql =  " SELECT `page`,`path`,`label`,`position` " . 
+	public function loadPageConfig() {
+        $sql =  " SELECT `page`,`path`,`label`,`position`,`enable`,`permissions` " . 
         		" FROM groom_common.pages " .
-        		" WHERE `enable`='1' AND `permissions`<={$permissions}" . 
+        		" WHERE `enable`='1' " . 
         		" ORDER BY `position` " .
                 ";";
 

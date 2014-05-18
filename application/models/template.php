@@ -70,16 +70,20 @@ Class Template extends CI_Model {
         }
     }
 
-    public function getHeaderLinks( $page = null ) {
+    public function getHeaderLinks( $page = null, $user_level = 0 ) {
         if( isset( $page ) ) {
             $links_array = explode( ",", $this->_getLinksFromConfig( $page, 'header' ) );
 
             $links_header = array();
 
+            // var_dump( $user_level );
+            // var_dump( $links_array );
+
             foreach( $this->page as $key => $page_data ) {
                 $page_name = $page_data['page'];
 
-                if( in_array( $page_data['page'], $links_array ) ) {
+                if( in_array( $page_data['page'], $links_array ) && 
+                    $user_level >= $page_data['permissions'] ) {
                     $links_header[] = array(
                         'page'      => $page_name,
                         'url'       => $this->page[$page_name]['path'],

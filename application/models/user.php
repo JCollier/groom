@@ -58,7 +58,7 @@
         }
 
         function getUserDataById( $id, $params = array() ) {
-            $sql =  " SELECT `usertype` FROM groom_common.users WHERE " .
+            $sql =  " SELECT * FROM groom_common.users WHERE " .
                       " `id`='${id}'" .
                       ";";
 
@@ -71,6 +71,12 @@
             $userdata = $this->getUserDataById( $id );
 
             return $userdata['usertype'];
+        }
+
+        function getUserLevelById( $id ) {
+            $userdata = $this->getUserDataById( $id );
+
+            return $userdata['userlevel'];
         }
 
         function isUserAdmin( $id ) {
