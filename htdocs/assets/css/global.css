@@ -43,6 +43,19 @@ body {
     float: left;
 }
 
+.header-link-div:hover {
+  border-bottom: 4px solid rgba( 1, 1, 1, 0.2 );
+}
+
+.gifts-item-subdiv {
+    background-color: #F9f9Ff;
+}
+
 .pos-float-right {
     float: right;
 }
+.gifts-item-main-div {
+  float:left;
+  width:50%
+}
+

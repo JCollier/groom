@@ -96,15 +96,17 @@ class Ajax extends CI_Controller {
                                             $item['img_path']   . 
                                             $item['img_name'];
 
-            $data['items'][$key]['description_1'] = $item['title'] .  ' - $' . $item['value_estimated'];
-            $data['items'][$key]['description_2'] = $item['description'];
+            $data['items'][$key]['description_1'] = strtoupper( substr( $item['description'], 0, 16 ) .  ' - $' . $item['value_estimated'] );
 
-            $data['items'][$key]['image']['display']['width']   = '90';
-            $data['items'][$key]['image']['display']['height']  = 'auto';
+            $data['items'][$key]['description_2'] = substr( $item['description'], 0, 84 );
 
-            $data['items'][$key]['item']['display']['width']   = '480';
-            $data['items'][$key]['item']['display']['height']  = '160';
-            $data['items'][$key]['item']['display']['span']    = '6';
+            $data['items'][$key]['image']['display']['width']   = '232';
+            $data['items'][$key]['image']['display']['height']  = '200';
+
+            $data['items'][$key]['item']['display']['width']   = '234px';
+            // $data['items'][$key]['item']['display']['width']   = '22%';
+            $data['items'][$key]['item']['display']['height']  = '264';
+            $data['items'][$key]['item']['display']['span']    = '4';
         }
 
         foreach( $data as $key => $param ) {

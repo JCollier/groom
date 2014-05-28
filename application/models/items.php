@@ -18,6 +18,8 @@ Class Items extends CI_Model {
 
         $items = $this->db->query( $sql )->result_array();
 
+        $items = array_merge($items, $items);
+
         return $items;
     }
 

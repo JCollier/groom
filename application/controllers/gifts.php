@@ -34,6 +34,7 @@ class Gifts extends CI_Controller {
         $data['base_url']             = $this->config->config['base_url'];
         $data['image_path']           = $this->config->config['image_path'];
         $data['js_path']['global']    = $this->config->config['js_global'];
+        $data['js_path']['jquery']    = $this->config->config['js_jquery'];
 
         $data['css_path']['global']             = $this->config->config['css_global'];
         $data['css_path']['bootstrap']          = $this->config->config['css_bootstrap'];
@@ -45,6 +46,16 @@ class Gifts extends CI_Controller {
         $data['links_footer'] = $this->template->getFooterLinks( 'home' );
         
         $data['item_count'] = intval( $this->items->getUsersItemCount( $data['userid'] ) );
+        $data['per_page']   = 8;
+        $data['page_count'] = ceil( $data['item_count'] / $data['per_page'] );
+
+        $item_count = intval( $this->items->getUsersItemCount( $data['userid'] ) );
+
+        $per_page = 16;
+
+        var_dump( $data['item_count'] / $data['page_count'] );
+
+        $data['item_count_per_page'] = intval( $this->items->getUsersItemCount( $data['userid'] ) ) / 16;        
 
         foreach( $data as $key => $param ) {
           $this->twiggy->set( $key, $param );

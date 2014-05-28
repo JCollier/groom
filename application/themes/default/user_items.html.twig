@@ -1,18 +1,23 @@
 {% block content %}
-    Test rendering of user items blocks
-
-    <div>
-    {% for item in items %}
-        <div class="col-xs-{{item.item.display.span}}" style="border:1px solid black; height:{{ item.item.display.height }}px;">
-            <div style="height: 100%; width:100%; padding-top:12px; padding-bottom:12px; padding-left:0px; padding-right:0px;">
-                <div><img style="display:block; margin:auto;" width="{{ item.image.display.width }}" height="{{ item.image.display.height }}" src="{{ item.href }}"></div>
-                <div style="display:block; margin:auto;">
-                    <div>{{ item.description_1 }}</div>
-                    <div>{{ item.description_2 }}</div>
-                </div>
+    <div id="users-block" style="display:block; width:100%;">
+        <center>
+        {% set n = 1 %}
+        {% for item in items %}
+            <div class="gifts-item-div" id="gifts-item-div-{{ n }}" style="box-shadow: 1px 1px 2px 0px rgba( 1, 1, 1, 0.2 );  width:{{ item.item.display.width }}; margin:0px; margin-top:20px; position: relative; padding-bottom:4px; min-height:100%; height:{{ item.item.display.height }}px; vertical-align:baseline; display:block; float:left; margin:0px;  margin-bottom:12px; overflow:hidden; padding-right:20%; margin-left:2%;">
+                <a href="#" class="gifts-item">
+                    <div style="z-index:2; position:absolute; top:0; left:0; opacity:0.5; background-color: #0d0e0d; height: 202px; width:234px; padding-top:0px; padding-bottom:8px; padding-left:0px; padding-right:0px; border:1px solid rgba(1, 1, 1, 0.2); box-shadow: 2px 1px 1px 0px rgba(1, 1, 1, 0.2);" id="gifts-item-subdiv-3" class="border-radius-m gifts-item-subdiv-bg"></div>
+                    <div class="border-radius-m gifts-item-subdiv" id="gifts-item-subdiv-{{ n }}" style="z-index:1; position:absolute; top:0; left:0; height: 100%; width:{{ item.item.display.width }}; padding-top:0px; padding-bottom:8px; padding-left:0px; padding-right:0px; border:1px solid rgba(1, 1, 1, 0.2); box-shadow: 2px 1px 1px 0px rgba(1, 1, 1, 0.2);">                            
+                        <center><div><img class="img-rounded-top gifts-item-img n-{{ n }}" id="gifts-item-img-{{ n }}" style="display:block; margin:auto;" width="{{ item.image.display.width }}px" height="{{ item.image.display.height }}px" src="{{ item.href }}"></div></center>
+                        <div style="display:block; margin:auto; padding-left:4px; padding-right:4px; border-top:1px solid rgba(1, 1, 1, 0.4); width:100%;">
+                            <div><b>{{ item.description_1 }}</b></div>
+                            <div style="font-size:12px; font-weight:400; margin-left:8px; margin-right:8px;">{{ item.description_2 }}</div>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
-    {% endfor %}
+            {% set n = n+1 %}
+        {% endfor %}
+        </center>
     </div>
 
 {% endblock %}

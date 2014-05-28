@@ -368,6 +368,7 @@ $config['image_profile_default']    = $config['image_path'] . '90.jpeg';
 
 $config['js_path']      = $config['base_url']   . 'htdocs/assets/js/';
 $config['js_global']    = $config['js_path']    . 'global.js';
+$config['js_jquery']    = $config['js_path']    . 'jquery.min.js';
 
 $config['fonts_path']   = $config['base_url']    . 'htdocs/assets/fonts/';
 

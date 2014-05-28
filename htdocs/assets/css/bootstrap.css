@@ -44,6 +44,7 @@ template {
 }
 a {
   background: transparent;
+  outline: 0;
 }
 a:active,
 a:hover {
@@ -273,10 +274,19 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
+  /* 
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
+  */
+
+  font-family: "Open Sans";
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  font-weight: 600;
+
   background-color: #fff;
 }
 input,
@@ -291,15 +301,19 @@ a {
   color: #428bca;
   text-decoration: none;
 }
+/*.gifts-item:hover {
+  display: none;
+}*/
 a:hover,
 a:focus {
   color: #2a6496;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 a:focus {
-  outline: thin dotted;
+/*  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+  outline-offset: -2px;*/
+  outline: none;
 }
 figure {
   margin: 0;
@@ -318,6 +332,14 @@ img {
 }
 .img-rounded {
   border-radius: 6px;
+}
+.img-rounded-top {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border: 0px solid black;
+}
+.border-radius-m {
+  border-radius: 4px;
 }
 .img-thumbnail {
   display: inline-block;
@@ -545,7 +567,7 @@ a.bg-success:hover {
   background-color: #c1e2b3;
 }
 .bg-info {
-  background-color: #d9edf7;
+  background-color: #dbece8;
 }
 a.bg-info:hover {
   background-color: #afd9ee;
@@ -1534,7 +1556,7 @@ table th[class*="col-"] {
 .table > thead > tr.info > th,
 .table > tbody > tr.info > th,
 .table > tfoot > tr.info > th {
-  background-color: #d9edf7;
+  background-color: #dbece8;
 }
 .table-hover > tbody > tr > td.info:hover,
 .table-hover > tbody > tr > th.info:hover,
@@ -3643,7 +3665,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   min-height: 50px;
   /*margin-bottom: 20px;*/
-  border: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-bottom:1px solid #cccccc;
 }
 @media (min-width: 768px) {
   .navbar {
@@ -4466,7 +4490,7 @@ a.thumbnail.active {
 }
 .alert-info {
   color: #31708f;
-  background-color: #d9edf7;
+  background-color: #dbece8;
   border-color: #bce8f1;
 }
 .alert-info hr {
@@ -4681,7 +4705,7 @@ a.list-group-item-success.active:focus {
 }
 .list-group-item-info {
   color: #31708f;
-  background-color: #d9edf7;
+  background-color: #dbece8;
 }
 a.list-group-item-info {
   color: #31708f;
@@ -4997,7 +5021,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel-info > .panel-heading {
   color: #31708f;
-  background-color: #d9edf7;
+  background-color: #dbece8;
   border-color: #bce8f1;
 }
 .panel-info > .panel-heading + .panel-collapse .panel-body {
@@ -5636,6 +5660,12 @@ button.close {
 .modal-footer:after {
   clear: both;
 }
+.header-link-div {
+  display: block;
+}
+.header-link-div:hover {
+   background-color:#f4fae1;
+}
 .center-block {
   display: block;
   margin-right: auto;
@@ -5782,4 +5812,70 @@ button.close {
     display: none !important;
   }
 }
+.bg-color-white {
+    background-color: #ffffff !important;
+}
+
+.div-block {
+  border: 1px solid #f9fef9;
+  border-radius:12px;
+  -moz-box-shadow: inset 0 0 2px #090e09;
+  -webkit-box-shadow: inset 0 0 2px #090e09;
+  box-shadow: inset 0 0 2px #090e09; 
+}
+
+.div-block-left {
+  border-top-left: 1px solid #f9fef9;
+  border-top-left-radius:12px;
+  border-bottom-left: 1px solid #f9fef9;
+  border-bottom-left-radius:12px;
+
+  border: 1px solid #f9fef9;
+
+  -moz-box-shadow: inset 2px 2px 2px -2px #090e09;
+  -webkit-box-shadow: inset 2px 2px 2px -2px #090e09;
+  box-shadow: inset 0 0 2px 0 #090e09; 
+}
+
+.div-block-height-default {
+  min-height:336px;
+  height: 336px;
+}
+
+.btn-nav-pagination {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.42857;
+  margin-bottom: 0;
+  padding: 0 10px;
+}
+
+.btn-nav-pagination-disabled {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.42857;
+  margin-bottom: 0;
+  padding: 0 10px;
+  color:#6f6f6f !important;
+}
+
+.btn-nav-pagination-disabled:hover {
+  background-image: linear-gradient(to bottom, #FFFFFF 0%, #E0E0E0 100%);
+  background-repeat: repeat-x;
+  border-color: #CCCCCC;
+  text-shadow: 0 1px 0 #FFFFFF;
+/*  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.42857;
+  margin-bottom: 0;
+  padding: 0 10px;*/
+}
+.gifts-item-subdiv:hover {
+  background-position: 0 -15px;
+}
+.gifts-item-subdiv-bg:hover {
+  background-position: 0 -15px;
+  opacity: 0.1 !important;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

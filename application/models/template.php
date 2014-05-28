@@ -87,7 +87,7 @@ Class Template extends CI_Model {
                     $links_header[] = array(
                         'page'      => $page_name,
                         'url'       => $this->page[$page_name]['path'],
-                        'label'     => $this->page[$page_name]['label'],
+                        'label'     => strtoupper( $this->page[$page_name]['label'] ),
                     );
                 }
             }
