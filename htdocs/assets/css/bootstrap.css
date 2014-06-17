@@ -5819,9 +5819,9 @@ button.close {
 .div-block {
   border: 1px solid #f9fef9;
   border-radius:12px;
-  -moz-box-shadow: inset 0 0 2px #090e09;
-  -webkit-box-shadow: inset 0 0 2px #090e09;
-  box-shadow: inset 0 0 2px #090e09; 
+  -moz-box-shadow: inset 0 0 2px 1px #797e79;
+  -webkit-box-shadow: inset 0 0 2px 1px #797e79;
+  box-shadow: inset 0 0 2px 1px #797e79;
 }
 
 .div-block-left {
@@ -5877,5 +5877,10 @@ button.close {
   background-position: 0 -15px;
   opacity: 0.1 !important;
 }
-
+.div-footer {
+  position:relative; 
+  bottom:0;
+  padding-right:6px;
+  height:20px;
+}
 /*# sourceMappingURL=bootstrap.css.map */
