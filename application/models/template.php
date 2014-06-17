@@ -125,6 +125,41 @@ Class Template extends CI_Model {
 
         return array( array( 'url' => 'home/logout', 'label' => 'logout' ) );
     }
+
+    public function buildTemplateFromData($data, $page = 'home') 
+    {
+        foreach ($data as $key => $param) {
+            $this->twiggy->set($key, $param);
+        }
+
+        return $this->twiggy->template($page)->display();
+    }
+
+    public function loadViewData($page = 'home')
+    {
+        $session_data       = $this->session->userdata('logged_in');
+        $data['username']   = $session_data['username'];
+        $data['userid']     = $session_data['id'];
+        $level              = $this->user->getUserLevelById($data['userid']);
+
+        $data['assets'] = $this->template->loadAssets(  
+            array(
+                array('css' => array('main', 'global')),
+                array('jpg' => array('sprite_global')),
+            )
+        );
+
+        $data['base_url']                       = $this->config->config['base_url'];
+        $data['image_path']                     = $this->config->config['image_path'];
+        $data['js_path']['global']              = $this->config->config['js_global'];
+        $data['css_path']['global']             = $this->config->config['css_global'];
+        $data['css_path']['bootstrap']          = $this->config->config['css_bootstrap'];
+        $data['css_path']['bootstrap_theme']    = $this->config->config['css_bootstrap_theme'];
+        $data['links_header']                   = $this->template->getHeaderLinks($page, $level);
+        $data['links_footer']                   = $this->template->getFooterLinks($page);        
+
+        return $data;
+    }
 }
 ?>
 

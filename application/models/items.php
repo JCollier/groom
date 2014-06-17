@@ -38,6 +38,14 @@ Class Items extends CI_Model {
         return $count;
     }
 
+
+    public function itemsInit($i) {
+        if($i > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
         // $data['user_images'] = $this->images->getImagesByUserId(    
         //                                                     $user_id, 
         //                                                     $page = 1, 

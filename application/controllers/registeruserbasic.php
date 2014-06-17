@@ -31,15 +31,14 @@ class RegisterUserBasic extends CI_Controller {
         $email       = $this->input->post( 'email' );
         $confirmed   = 'not_confirmed';
 
-        $user_exists    = $this->user->checkUsernameExists( $username );
-        $email_exists   = $this->user->checkEmailExists( $email );
-
-        if( $user_exists ) {
-          echo( 'Username has been taken!' );
+        if($this->user->checkUsernameExists($username)) {
+          echo('Username has been taken!');
           return false;
-        }
-        else if( $email_exists ) {
-          echo( 'Email address is already in use!' );
+        } else if ($this->user->checkEmailExists($email)) {
+          echo('Email address is already in use!' );
+          return false;
+        } elseif (!$this->user->isUserInvitedByEmail($email)) {
+          echo('Sorry, registration is only available to invited users.' );
           return false;
         }
         else {

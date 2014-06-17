@@ -648,19 +648,14 @@ class CI_Form_validation {
 			}
 
 			// Did the rule test negatively?  If so, grab the error.
-			if ($result === FALSE)
-			{
-				if ( ! isset($this->_error_messages[$rule]))
-				{
-					if (FALSE === ($line = $this->CI->lang->line($rule)))
-					{
-						$line = 'Unable to access an error message corresponding to your field name.';
-					}
-				}
-				else
-				{
-					$line = $this->_error_messages[$rule];
-				}
+			if ($result === FALSE) {
+				// if (!isset($this->_error_messages[$rule])) {
+				// 	if (FALSE === ($line = $this->CI->lang->line($rule))) {
+				// 		$line = 'Unable to access an error message corresponding to your field name.';
+				// 	}
+				// } else {
+				// 	$line = $this->_error_messages[$rule];
+				// }
 
 				// Is the parameter we are inserting into the error message the name
 				// of another field?  If so we need to grab its "field label"

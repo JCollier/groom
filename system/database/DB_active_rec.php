@@ -2137,6 +2137,39 @@ class CI_DB_active_record extends CI_DB_driver {
 			return null;
 		}
 	}
+
+	public function insertWithParams($database, $table, $params) 
+	{
+        $fields = "(";
+       	$values = "VALUES (";
+        $count  = max(count($params) - 1, 0);
+
+        foreach ($params as $field => $value) {
+            if ($count-- <= 0) {
+                $fields .= "`{$field}`)";
+
+				if (is_string($value)) {
+					$values .= "'{$value}')";
+				} else {
+					$values .= "{$value})";
+				}
+            } else {
+                $fields .= "`{$field}`,";
+
+				if (is_string($value)) {
+					$values .= "'{$value}',";
+				} else {
+					$values .= "{$value},";
+				}
+            }
+        }
+
+        $sql = "INSERT INTO `{$database}`.`{$table}` ";
+        $sql .= "{$fields} ";
+        $sql .= "{$values};";
+
+		$this->query($sql);
+	}
 }
 
 /* End of file DB_active_rec.php */
