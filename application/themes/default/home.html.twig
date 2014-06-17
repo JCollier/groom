@@ -33,7 +33,13 @@
                             <div style="width:100%; height:100%; border:1px solid black; float:left;">
                                 <div>#{{ n }}</div>
 
-                                <img src="{{ user.profile_img_src }}">
+                                {% if user.profile_public %}
+                                    <a href="profile/{{ user.profile_id }}">
+                                        <img src="{{ user.profile_img_src }}">
+                                    </a>
+                                {% else %}
+                                    <img src="{{ user.profile_img_src }}">
+                                {% endif %}
 
                                 <div>{{ user.username }}</div>
                             </div>

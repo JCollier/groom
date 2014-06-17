@@ -20,8 +20,9 @@ class Info extends CI_Controller {
     function index()
     {
         if ($this->session->userdata('logged_in')) {
-            $data               = $this->template->loadViewData('info');
-            $data['template']   = $this->template->buildTemplateFromData($data, 'info');
+            $data                   = $this->template->loadViewData('info');
+            $data['static_info']    = $this->template->getStaticFromDb('info', 'basic');
+            $data['template']       = $this->template->buildTemplateFromData($data, 'info');
 
             $this->load->view('info_view', $data);
         } else {

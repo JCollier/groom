@@ -135,6 +135,15 @@ Class Template extends CI_Model {
         return $this->twiggy->template($page)->display();
     }
 
+    public function getStaticFromDb($page, $template) 
+    {
+        $sql =  "SELECT `static_content` FROM groom_common.statics " .
+                "WHERE `page`='{$page}' AND `template`='{$template}';";
+        $static = $this->db->query( $sql )->result_array();
+
+        return $static[0]['static_content'];
+    }
+
     public function loadViewData($page = 'home')
     {
         $session_data       = $this->session->userdata('logged_in');

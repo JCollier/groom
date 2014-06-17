@@ -122,6 +122,10 @@
                 $user_data = $this->getUserDataById($donator['id']);
 
                 $users['donators'][$key]['username']        = $user_data['username'];
+
+                $users['donators'][$key]['profile_id']      = $user_data['id'];
+                $users['donators'][$key]['profile_public']  = false;
+
                 $users['donators'][$key]['total_donated']   = $donator['total_donated'] . '.00';
                 $users['donators'][$key]['profile_img_src'] = $this->getUserProfileImgSrc(
                                                                                             'profile', 
