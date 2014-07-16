@@ -165,7 +165,11 @@ Class Template extends CI_Model {
         $data['css_path']['bootstrap']          = $this->config->config['css_bootstrap'];
         $data['css_path']['bootstrap_theme']    = $this->config->config['css_bootstrap_theme'];
         $data['links_header']                   = $this->template->getHeaderLinks($page, $level);
-        $data['links_footer']                   = $this->template->getFooterLinks($page);        
+        $data['links_footer']                   = $this->template->getFooterLinks($page);
+
+        if ($page == 'home') {
+            $data['bg_portrait'] = $data['base_url'] . 'htdocs/images_1/default/bg_img_3.jpg';
+        }
 
         return $data;
     }

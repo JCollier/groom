@@ -22,6 +22,28 @@ class Home extends CI_Controller {
 
             //$this->user->insertUserIntoUserExtra(1, array()); will make  use of this later
             $data['display_params']['users'] = $this->user->getUsersExtraDisplay(4);
+            $data['display_params']['infos'] = array(
+                array(
+                    'title'         => 'some title 1',
+                    'description'   => 'some title 1some title 1some title 1some title 1some title 1some title 1some title 1some title 1',
+                    'img_src'       => 'info_1.jpg'
+                ),
+                array(
+                    'title'         => 'some title 2',
+                    'description'   => 'some title 1some title 1some title 1some title 1some title 1some title 1some title 1some title 1',
+                    'img_src'       => 'info_2.jpg'
+                ),
+                array(
+                    'title'         => 'some title 3',
+                    'description'   => 'some title 1some title 1some title 1some title 1some title 1some title 1some title 1some title 1',
+                    'img_src'       => 'info_3.jpg'
+                ),
+                array(
+                    'title'         => 'some title 4',
+                    'description'   => 'some title 1some title 1some title 1some title 1some title 1some title 1some title 1some title 1',
+                    'img_src'       => 'info_4.jpg'
+                )
+            );
 
             $data['template'] = $this->template->buildTemplateFromData($data, 'home');
 

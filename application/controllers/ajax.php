@@ -133,6 +133,3 @@ class Ajax extends CI_Controller {
     //   echo $param;
     // }   
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
