@@ -358,21 +358,18 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['css_path']             = $config['base_url']   . 'htdocs/assets/css/';
-$config['css_global']           = $config['css_path']   . 'global.css';
-$config['css_bootstrap']        = $config['css_path']   . 'bootstrap.css';
-$config['css_bootstrap_theme']  = $config['css_path']   . 'bootstrap-theme.css';
-
-$config['image_path']               = $config['base_url']   . 'htdocs/assets/images/';
-$config['image_profile_default']    = $config['image_path'] . '90.jpeg';
+$config['css_path']             	= $config['base_url']   . 'htdocs/assets/css/';
+$config['css_global']           	= $config['css_path']   . 'global.css';
+$config['css_bootstrap']        	= $config['css_path']   . 'bootstrap.css';
+$config['css_bootstrap_theme']  	= $config['css_path']   . 'bootstrap-theme.css';
+$config['image_path']            	= $config['base_url']   . 'htdocs/assets/images/';
+$config['image_profile_default'] 	= $config['image_path'] . '90.jpeg';
+$config['app_info']['version'] 		= "0.0.0.1";
 
 $config['js_path']      = $config['base_url']   . 'htdocs/assets/js/';
 $config['js_global']    = $config['js_path']    . 'global.js';
 $config['js_jquery']    = $config['js_path']    . 'jquery.min.js';
-
-$config['fonts_path']   = $config['base_url']    . 'htdocs/assets/fonts/';
-
-$config['app_info']['version'] = "0.0.0.1";
+$config['fonts_path']   = $config['base_url']   . 'htdocs/assets/fonts/';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

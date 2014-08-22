@@ -45,8 +45,9 @@ class Home extends CI_Controller {
                 )
             );
 
-            $data['app_info']['version'] = "0.0.0.1";
-
+            $data['app_info']['version'] = $this->config->config['app_info']['version'] 
+                ?: "n/";
+            $data['app_info']['version'] = "v" . $data['app_info']['version'];
             $data['template'] = $this->template->buildTemplateFromData($data, 'home');
 
             $this->load->view('home_view', $data);

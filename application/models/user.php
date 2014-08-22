@@ -93,14 +93,6 @@
         public function getUserProfileImgSrcByUserId($user_id) {
             $base_url = $this->config->config['base_url'];
 
-            // $data['items'][$key]['href'] =  $base_url .
-            //                                 'htdocs/' .  
-            //                                 $item['img_folder'] . 
-            //                                 $item['img_path']   . 
-            //                                 $item['img_name'];
-
-            // $img_src = $
-
             return '';
         }
 
