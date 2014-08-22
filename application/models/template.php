@@ -137,7 +137,7 @@ Class Template extends CI_Model {
 
     public function getStaticFromDb($page, $template) 
     {
-        $sql =  "SELECT `static_content` FROM groom_common.statics " .
+        $sql =  "SELECT `static_content` FROM vesper_common.statics " .
                 "WHERE `page`='{$page}' AND `template`='{$template}';";
         $static = $this->db->query( $sql )->result_array();
 

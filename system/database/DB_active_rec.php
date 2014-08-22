@@ -2074,7 +2074,7 @@ class CI_DB_active_record extends CI_DB_driver {
 
 	public function loadPageConfig() {
         $sql =  " SELECT `page`,`path`,`label`,`position`,`enable`,`permissions` " . 
-        		" FROM groom_common.pages " .
+        		" FROM vesper_common.pages " .
         		" WHERE `enable`='1' " . 
         		" ORDER BY `position` " .
                 ";";
@@ -2091,7 +2091,7 @@ class CI_DB_active_record extends CI_DB_driver {
 
 	public function loadInits( $page = null ) {
         $sql =  " SELECT `page`,`section`,`key`,`value` " . 
-        		" FROM groom_common.inits WHERE " .
+        		" FROM vesper_common.inits WHERE " .
                   " `page`='${page}'" .
                   ";";
 

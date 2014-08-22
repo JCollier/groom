@@ -372,5 +372,7 @@ $config['js_jquery']    = $config['js_path']    . 'jquery.min.js';
 
 $config['fonts_path']   = $config['base_url']    . 'htdocs/assets/fonts/';
 
+$config['app_info']['version'] = "0.0.0.1";
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -7,7 +7,7 @@ Class Items extends CI_Model {
 
         $offset = ( $page - 1 ) * $limit;
 
-        $sql =  "SELECT * FROM groom_common.items " . 
+        $sql =  "SELECT * FROM vesper_common.items " . 
                 "WHERE `user_id`={$user_id} ";
 
         if( $sort == 'value' ) {
@@ -26,7 +26,7 @@ Class Items extends CI_Model {
     public function getUsersItemCount( $user_id ) 
     {
         $sql =  "SELECT COUNT(*) as `num` ".
-                "FROM groom_common.items " . 
+                "FROM vesper_common.items " . 
                 "WHERE `user_id`='{$user_id}';";
 
         $result = $this->db->query( $sql )->result_array();

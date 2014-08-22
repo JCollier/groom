@@ -58,7 +58,7 @@
         }
 
         function getUserDataById( $id, $params = array() ) {
-            $sql =  " SELECT * FROM groom_common.users WHERE " .
+            $sql =  " SELECT * FROM vesper_common.users WHERE " .
                       " `id`='${id}'" .
                       ";";
 
@@ -156,7 +156,7 @@
 
             $sort = strtoupper($sort);
 
-            $sql =  "SELECT * FROM groom_common.users_extra ";
+            $sql =  "SELECT * FROM vesper_common.users_extra ";
             $sql .= "WHERE `profile_visibility`='${visibility}' ";
             $sql .= "ORDER BY ${order_by} $sort ";
             $sql .= "LIMIT ${limit} ";
@@ -166,7 +166,7 @@
 
         public function getUserFromUsersExtraById($user_id)
         {
-            $sql =  "SELECT * FROM groom_common.users_extra ";
+            $sql =  "SELECT * FROM vesper_common.users_extra ";
             $sql .= "WHERE `user_id`='{$user_id}' ";
             $sql .= "LIMIT 1";
 
@@ -180,7 +180,7 @@
             else {
                 $offset = ( intval( $page ) - 1 ) * intval( $limit );
 
-                $sql =  " SELECT * FROM groom_common.users" . 
+                $sql =  " SELECT * FROM vesper_common.users" . 
                         " LIMIT ${offset},${limit};";
 
                 return $this->db->query( $sql )->result_array();
@@ -210,7 +210,7 @@
 
             if (!$this->getUserFromUsersExtraById($user['user_id'])) {
                 $table      = 'users_extra';
-                $database   = 'groom_common';
+                $database   = 'vesper_common';
 
                 return $this->db->insertWithParams($database, $table, $params);
             } else {
@@ -220,7 +220,7 @@
 
         public function isUserInvitedByEmail($email)
         {
-            $sql =  "SELECT `value` FROM groom_common.inits " . 
+            $sql =  "SELECT `value` FROM vesper_common.inits " . 
                     "WHERE `page`='global' AND `section`='user' ".
                     "AND `key`='invited_users'";
 
