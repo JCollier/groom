@@ -1,6 +1,7 @@
 html , body {
-	background: #212121; 
-	color: #fff; 
+	/*background: #212121; */
+	background: #fefefe;
+	color: #000; 
 	font-family: Helvetica;
 	margin: 0; 
 	padding: 0;

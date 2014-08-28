@@ -125,6 +125,23 @@ if('undefined' != typeof(global)) frame_time = 45; //on server we run at 45ms, 2
             //Start a fast paced timer for measuring time easier
         this.create_timer();
 
+        this.setGlobalDate();
+
+        // Update the time display
+        var date_settings               = this.getDateSettings();
+        var app_current_date_display    = this.getDateForDisplay(date_settings["app_current_date"], 'app_current_date');
+
+        this.logMsg('line 134');
+        console.log(app_current_date_display);
+        this.logMsg(app_current_date_display);
+
+        this.initClockDisplay(app_current_date_display);
+        this.updateClock();
+        this.getClock();
+        this.logMsg('test getClock()');
+
+        this.updateGameClock();
+
             //Client specific initialisation
         if(!this.server) {
             
@@ -856,6 +873,302 @@ game_core.prototype.create_timer = function(){
         this._dte = new Date().getTime();
         this.local_time += this._dt/1000.0;
     }.bind(this), 4);
+}
+
+game_core.prototype.getAjaxResponse = function(module, method, type)
+{
+    var ajaxRequest;
+
+    try{    // Opera 8.0+, Firefox, Safari
+        ajaxRequest = new XMLHttpRequest();
+    } catch (e){    // Internet Explorer Browsers
+    try{
+        ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+        try{
+            ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (e){    // Something went wrong
+                console.log("error: game_core.prototype.getAjaxResponse();");
+                return false;
+            }
+        }
+    }
+
+    // Create a function that will receive data sent from the server
+    ajaxRequest.onreadystatechange = function()
+    {   
+        if (ajaxRequest.readyState == 4) {
+            if (ajaxRequest.status != 404) {
+                window.out_text = ajaxRequest.responseText;
+            }
+
+            var response_text = window.out_text;
+
+            return response_text;
+        } 
+    }
+
+    var request_url = '';
+    request_url     = '../groom/' + module + '/' + method + '?p[1]=' + type;
+
+    ajaxRequest.open("GET", request_url, false);
+    ajaxRequest.setRequestHeader('Accept','message/x-jl-formresult');
+    ajaxRequest.send(null);
+
+    if (ajaxRequest.response > '') {
+        return [type, ajaxRequest.responseText.replace(/(\r\n|\n|\r)/gm,"")];
+    }
+}
+
+game_core.prototype.mapMonth = function(value)
+{
+    value = value.replace(/^0+/, '');
+
+    if (value.length != 'undefined') {
+        var months  = [];
+        if (value.length < 3) {
+            months[0]   = '';
+            months[1]   = 'January';
+            months[2]   = 'February';
+            months[3]   = 'March';
+            months[4]   = 'April';
+            months[5]   = 'May';
+            months[6]   = 'June';
+            months[7]   = 'July';
+            months[8]   = 'August';
+            months[9]   = 'September';
+            months[10]  = 'October';
+            months[11]  = 'November';
+            months[12]  = 'December';
+
+            return months[value].substring(0,3);
+        }
+        else if (typeof value == 'string') {
+            value = value.substring(0,3);
+
+            months['']    = 0;
+            months['Jan'] = 1;
+            months['Feb'] = 2;
+            months['Mar'] = 3;
+            months['Apr'] = 4;
+            months['May'] = 5;
+            months['Jun'] = 6;
+            months['Jul'] = 7;
+            months['Aug'] = 8;
+            months['Sep'] = 9;
+            months['Oct'] = 1;
+            months['Nov'] = 1;
+            months['Dec'] = 1;
+
+            var pad_2   = "00";
+            var month   = String(months[value]);
+            month       = pad_2.substring(0, pad_2.length - month.length) + month;
+
+            return month;
+        }
+    }
+
+    return 'Jan';
+}
+
+game_core.prototype.logMsg = function(msg) 
+{
+    var msg_type = Object.prototype.toString.call(msg);
+
+    if (msg_type == 'string') {
+        this.log('line 979 - msg_type == string');
+    } else if (msg_type == 'Array') {
+        this.log('line 981 - msg_type == Array');
+    }
+
+    console.log(this.getClock('log') + msg);
+}
+
+game_core.prototype.getDateForDisplay = function(value, type)
+{
+    params          = [];
+    params["year"]  = null;
+    params["month"] = null;
+    params["day"]   = null;
+
+    if (type == 'app_current_date') {
+        var app_current_date_split = value.split("-");
+
+        params["year"]  = app_current_date_split[0].replace(/^0+/, '\ ');
+        params["month"] = this.mapMonth(app_current_date_split[1]);
+        params["day"]   = app_current_date_split[2].replace(/^0+/, '\ ');
+    }
+
+    console.log(params);
+
+    var date_display = params["month"] + " " + params["day"] + ", " + params["year"];
+
+    return date_display;
+}
+
+// game_core.prototype.getDates = function ()
+// valid types: 'server_start_ts','server_start_date','server_current_ts','server_current_date',
+//              'app_time_elapsed_since_start','app_start_date','app_current_date'
+game_core.prototype.getDates = function()
+{
+    types = [
+        // 'server_start_ts',
+        // 'server_start_date',
+        // 'server_current_ts',
+        // 'server_current_date',
+        'app_time_elapsed_since_start',
+        // 'app_start_date',
+        'app_current_date',
+    ];
+
+    var dates   = [];
+    var k       = 0;
+
+    for (i = 0; i < types.length; ++i) {
+        var type    = types[i];
+        dates[type] = null;
+
+        var ajax_response = this.getAjaxResponse('clock', 'getDateSettings', type);
+
+        if (ajax_response[0] == type && ajax_response[1] > '') {
+            dates[type] = ajax_response[1];
+        } else if (k > 15) {
+            dates[type] = 'error';
+        }
+
+        k++;
+    }
+
+    this.logMsg(dates);
+
+    return dates;
+}
+
+game_core.prototype.initClockDisplay = function(value=value)
+{
+    this.replaceHtmlElement('div','id','clock',value);
+}
+
+game_core.prototype.updateClockDisplay = function(value=value)
+{
+    this.replaceHtmlElement('div','id','clock',value);
+}
+
+game_core.prototype.replaceHtmlElement = function(element='div', type='id', name='clock', value=value)
+{
+    this.logMsg('line 1044');
+    this.logMsg(name);
+    this.logMsg(value);
+
+    document.getElementById(name).firstChild.nodeValue = value;
+}
+
+game_core.prototype.getDateSettings = function()
+{   
+    var dates = this.getDates();
+
+    return dates;
+}
+
+game_core.prototype.updateGameClock = function(){
+    setInterval(function(){
+        // Update the time display
+        var date_settings               = this.getDateSettings();
+        this.logMsg(date_settings);
+        var app_current_date_display    = this.getDateForDisplay(date_settings["app_current_date"], 'app_current_date');
+
+        document.getElementById("clock").firstChild.nodeValue = app_current_date_display;
+
+        console.log('test 1063');
+        console.log(app_current_date_display);
+        console.log(date_settings);
+    }.bind(this), 5000);
+}
+
+game_core.prototype.setGlobalDate = function() {
+    window.date = new Date();
+}
+
+game_core.prototype.getClock = function(type = 'log')
+{
+    // setInterval(function(){
+        var pad_2 = "00";
+
+        var currentTime     = window.date;
+        var curr_time       = String(currentTime).split(" ");
+        var currentMinutes  = String((currentMinutes < 10 ? "0" : "") + currentTime.getMinutes());
+        currentMinutes      = pad_2.substring(0, pad_2.length - currentMinutes.length) + currentMinutes;
+        //console.log(currentMinutes);
+
+        var currentSeconds  = String((currentSeconds < 10 ? "0" : "") + currentTime.getSeconds());
+        currentSeconds      = pad_2.substring(0, pad_2.length - currentSeconds.length) + currentSeconds;
+        // console.log(currentSeconds);
+
+        var currentHours    = currentTime.getHours();
+        currentHours        = String((currentHours == 0) ? 12 : currentHours);
+        currentHours        = pad_2.substring(0, pad_2.length - currentHours.length) + currentHours;
+        //console.log(currentHours);
+
+        if (type == 'log') {
+            var current_month   = this.mapMonth(curr_time[1]);
+            console.log('current_month' + current_month);
+
+            var current_date_result = 
+                "["             + 
+                curr_time[3]    + "-" + 
+                current_month   + "-" + 
+                curr_time[2]    + " " + 
+                currentHours    + ":" + 
+                currentMinutes  + ":" + 
+                currentSeconds  + "] ";
+            //console.log(current_date_result);
+
+            //this.logMsg(current_date_result);
+        } else if (type == 'display') {
+            var timeOfDay   = (currentHours < 12) ? "AM" : "PM";
+            currentHours    = (currentHours > 12) ? currentHours - 12 : currentHours;
+
+            var current_date_result = 
+                curr_time[1]    + " "   + 
+                curr_time[2]    + ", "  + 
+                curr_time[3]    + " "   + 
+                currentHours    + ":"   + 
+                currentMinutes  + ":"   + 
+                currentSeconds  + " "   + timeOfDay;
+
+                //this.logMsg(current_date_result);
+        }
+
+        // Update the time display
+        // document.getElementById("clock-game").firstChild.nodeValue = current_date_display;
+    // }.bind(this), 1000);
+
+    return current_date_result;
+}
+
+game_core.prototype.updateClock = function()
+{
+    setInterval(function(){
+        // var currentTime     = new Date();
+        // var curr_time       = String(currentTime).split(" ");
+        // var currentHours    = currentTime.getHours();
+        // var currentMinutes  = (currentMinutes < 10 ? "0" : "") + currentTime.getMinutes();
+        // var currentSeconds  = (currentSeconds < 10 ? "0" : "") + currentTime.getSeconds();
+        // var timeOfDay       = (currentHours < 12) ? "AM" : "PM";
+        // currentHours        = (currentHours > 12) ? currentHours - 12 : currentHours;
+        // currentHours        = (currentHours == 0) ? 12 : currentHours;
+
+        // var current_date_display = 
+        //     curr_time[1]    + " "   + 
+        //     curr_time[2]    + ", "  + 
+        //     curr_time[3]    + " "   + 
+        //     currentHours    + ":"   + 
+        //     currentMinutes  + ":"   + 
+        //     currentSeconds  + " "   + timeOfDay;
+
+        // Update the time display
+        document.getElementById("clock-game").firstChild.nodeValue = this.getClock('display');
+    }.bind(this), 1000);
 }
 
 game_core.prototype.create_physics_simulation = function() {

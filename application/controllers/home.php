@@ -11,7 +11,8 @@ class Home extends CI_Controller {
         $this->ini->home     = $this->db->loadInits('home');
 
         $this->load->model('user', '', TRUE);
-        $this->load->model( 'template', '', TRUE );
+        $this->load->model('template', '', TRUE);
+        $this->load->model('date', '', TRUE);
         $this->load->spark('Twiggy/0.8.5');
     }
 
@@ -45,9 +46,14 @@ class Home extends CI_Controller {
                 )
             );
 
-            $data['app_info']['version'] = $this->config->config['app_info']['version'] 
+            // $data['app_info']['server_time'] = $this->date->getServerTime();
+    
+            $data['app_info']['date']       = $this->date->getDateSettings();
+            $data['app_info']['version']    = "v" . $this->config->config['app_info']['version'] 
                 ?: "n/";
-            $data['app_info']['version'] = "v" . $data['app_info']['version'];
+            
+            var_dump( $data['app_info'] );
+
             $data['template'] = $this->template->buildTemplateFromData($data, 'home');
 
             $this->load->view('home_view', $data);
