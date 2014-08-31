@@ -21,6 +21,94 @@ class Home extends CI_Controller {
         if ($this->session->userdata('logged_in')) {
             $data = $this->template->loadViewData('home');
 
+// -77.00  41.00   72  25  3
+// -76.75  41.00   72  25  3
+// -76.25  41.00   72  25  3
+// -76.00  41.00   72  25  3
+
+            $end_string = "\t72\t25\t3\n";
+
+            $regions = array(
+                array(
+                    "x_start" => 80.00,
+                    "y_start" => 42.00,
+                ),
+                array(
+                    "x_start" => 77.50,
+                    "y_start" => 42.00,
+                    "bg_color" => 'blue'
+                ),
+                array(
+                    "x_start" => 75.00,
+                    "y_start" => 42.00,
+                ),
+            );
+
+            $string_whole = "0\t1\tPCT_Renter\tPCT_Owner\tPCT_Vacant\n";
+
+            foreach ($regions as $region) {
+                $n = $region['x_start'];
+
+                for ($k=1; $k<12; $k++) {
+                    $n = $n - 0.25;
+                    $y = $region['y_start'];
+
+                    $bg_color = !empty($region['bg_color'])
+                        ? $region['bg_color']
+                        : 'black';
+
+                    for ($i=1; $i<=6; $i++) {
+                        $y = $y-0.27;
+                        $x = $n - ($i*0.23);
+
+                        $string = 
+                             "-" . 
+                            money_format('%.2n', $x) . 
+                            "\t" . 
+                            money_format('%.2n', $y) . 
+                            "\t" . 
+                            $bg_color . 
+                            $end_string;
+
+                        $string_whole .= $string;
+                    }
+                }
+            }
+
+            echo($string_whole);
+
+            $filepath   = dirname(__FILE__) . '/../../';
+            $filename   = $filepath . 'us_housing_simplified_generated.tsv';
+            $result = file_put_contents($filename, $string_whole);
+
+            die();
+
+            // $n = 92.00;
+
+
+
+            // $n = 82.00;
+
+            // for ($k=1; $k<16; $k++) {
+            //     $n = $n - 0.25;
+            //     $y = 44.00;
+
+            //     for ($i=1; $i<=8; $i++) {
+            //         $y = $y-0.27;
+            //         $x = $n - ($i*0.23);
+
+            //         echo(
+            //             "-" . 
+            //             money_format('%.2n', $x) . 
+            //             "  " . 
+            //             money_format('%.2n', $y) . 
+            //             $end_string
+            //         );
+            //     }
+            // }
+
+            die();
+
             //$this->user->insertUserIntoUserExtra(1, array()); will make  use of this later
             $data['display_params']['users'] = $this->user->getUsersExtraDisplay(4);
             $data['display_params']['infos'] = array(

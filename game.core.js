@@ -125,22 +125,48 @@ if('undefined' != typeof(global)) frame_time = 45; //on server we run at 45ms, 2
             //Start a fast paced timer for measuring time easier
         this.create_timer();
 
+
+
+        /*
+        *
+        * INIT FUNCTIONS HERE!
+        *
+        *
+        */
+
         this.setGlobalDate();
 
         // Update the time display
         var date_settings               = this.getDateSettings();
+
+        console.log('l 133' + date_settings);
+
+        var server_current_date_display = this.getDateForDisplay(date_settings["server_current_date"], 'server_current_date');
         var app_current_date_display    = this.getDateForDisplay(date_settings["app_current_date"], 'app_current_date');
 
         this.logMsg('line 134');
         console.log(app_current_date_display);
         this.logMsg(app_current_date_display);
 
-        this.initClockDisplay(app_current_date_display);
-        this.updateClock();
-        this.getClock();
-        this.logMsg('test getClock()');
+        this.initClockDisplay(server_current_date_display, "clock");
+        this.initClockDisplay(app_current_date_display, "clock-game");
+        
+        //this.getClock();
 
-        this.updateGameClock();
+        this.updateClock();
+        this.updateClockGame();
+
+        var hexModel = function() {
+            getHexMap();
+        };
+
+        this.loadScript('http://192.168.220.142/groom/hexmap.js', hexModel);
+
+        alert('done');
+
+        /*
+        *
+        */
 
             //Client specific initialisation
         if(!this.server) {
@@ -980,28 +1006,28 @@ game_core.prototype.logMsg = function(msg)
     } else if (msg_type == 'Array') {
         this.log('line 981 - msg_type == Array');
     }
-
-    console.log(this.getClock('log') + msg);
 }
 
 game_core.prototype.getDateForDisplay = function(value, type)
 {
-    params          = [];
-    params["year"]  = null;
-    params["month"] = null;
-    params["day"]   = null;
+    var date_display = '';
 
     if (type == 'app_current_date') {
+        var params      = [];
+        params["year"]  = null;
+        params["month"] = null;
+        params["day"]   = null;
+
         var app_current_date_split = value.split("-");
 
         params["year"]  = app_current_date_split[0].replace(/^0+/, '\ ');
         params["month"] = this.mapMonth(app_current_date_split[1]);
         params["day"]   = app_current_date_split[2].replace(/^0+/, '\ ');
+
+        var date_display = params["month"] + " " + params["day"] + ", " + params["year"];
+    } else {
+        var date_display = value;
     }
-
-    console.log(params);
-
-    var date_display = params["month"] + " " + params["day"] + ", " + params["year"];
 
     return date_display;
 }
@@ -1015,7 +1041,7 @@ game_core.prototype.getDates = function()
         // 'server_start_ts',
         // 'server_start_date',
         // 'server_current_ts',
-        // 'server_current_date',
+        'server_current_date',
         'app_time_elapsed_since_start',
         // 'app_start_date',
         'app_current_date',
@@ -1044,14 +1070,14 @@ game_core.prototype.getDates = function()
     return dates;
 }
 
-game_core.prototype.initClockDisplay = function(value=value)
+game_core.prototype.initClockDisplay = function(value=value, type=type)
 {
-    this.replaceHtmlElement('div','id','clock',value);
+    this.replaceHtmlElement('div', 'id', type, value);
 }
 
 game_core.prototype.updateClockDisplay = function(value=value)
 {
-    this.replaceHtmlElement('div','id','clock',value);
+    this.replaceHtmlElement('div', 'id', 'clock', value);
 }
 
 game_core.prototype.replaceHtmlElement = function(element='div', type='id', name='clock', value=value)
@@ -1070,19 +1096,65 @@ game_core.prototype.getDateSettings = function()
     return dates;
 }
 
-game_core.prototype.updateGameClock = function(){
+game_core.prototype.updateClock = function(){
+    setInterval(function(){
+        var date_settings               = this.getDateSettings();
+        var server_current_date_display = this.getDateForDisplay(date_settings["server_current_date"], 'server_current_date');
+
+        document.getElementById("clock").firstChild.nodeValue = server_current_date_display;
+    }.bind(this), 5000);
+}
+
+// game_core.prototype.loadScript = function(url, callback){
+//     // Adding the script tag to the head as suggested before
+//     var head = document.getElementsByTagName('head')[0];
+//     var script = document.createElement('script');
+//     script.type = 'text/javascript';
+//     script.src = url;
+
+//     // Then bind the event to the callback function.
+//     // There are several events for cross browser compatibility.
+//     script.onreadystatechange = callback;
+//     script.onload = callback;
+
+//     // Fire the loading
+//     head.appendChild(script);
+// }
+
+game_core.prototype.loadScript = function(url, callback){
+    // var js = document.createElement("script");
+    // var jsFilePath = 'http://192.168.220.142/groom/hexmap.js';
+
+    // js.type = "text/javascript";
+    // js.src = jsFilePath;
+
+    // document.body.appendChild(js);
+
+    // //var s = new MySuperObject();
+
+    // Adding the script tag to the head as suggested before
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+}
+
+game_core.prototype.updateClockGame = function(){
     setInterval(function(){
         // Update the time display
         var date_settings               = this.getDateSettings();
-        this.logMsg(date_settings);
         var app_current_date_display    = this.getDateForDisplay(date_settings["app_current_date"], 'app_current_date');
 
-        document.getElementById("clock").firstChild.nodeValue = app_current_date_display;
-
-        console.log('test 1063');
-        console.log(app_current_date_display);
-        console.log(date_settings);
-    }.bind(this), 5000);
+        document.getElementById("clock-game").firstChild.nodeValue = app_current_date_display;
+    }.bind(this), 1000);
 }
 
 game_core.prototype.setGlobalDate = function() {
@@ -1111,7 +1183,6 @@ game_core.prototype.getClock = function(type = 'log')
 
         if (type == 'log') {
             var current_month   = this.mapMonth(curr_time[1]);
-            console.log('current_month' + current_month);
 
             var current_date_result = 
                 "["             + 
@@ -1146,30 +1217,22 @@ game_core.prototype.getClock = function(type = 'log')
     return current_date_result;
 }
 
-game_core.prototype.updateClock = function()
-{
-    setInterval(function(){
-        // var currentTime     = new Date();
-        // var curr_time       = String(currentTime).split(" ");
-        // var currentHours    = currentTime.getHours();
-        // var currentMinutes  = (currentMinutes < 10 ? "0" : "") + currentTime.getMinutes();
-        // var currentSeconds  = (currentSeconds < 10 ? "0" : "") + currentTime.getSeconds();
-        // var timeOfDay       = (currentHours < 12) ? "AM" : "PM";
-        // currentHours        = (currentHours > 12) ? currentHours - 12 : currentHours;
-        // currentHours        = (currentHours == 0) ? 12 : currentHours;
+// game_core.prototype.updateClock = function(){
+//     setInterval(function(){
+//         // Update the time display
+//         var date_settings               = this.getDateSettings();
+//         this.logMsg('l 1079' + date_settings);
+//         var server_current_date_display    = this.getDateForDisplay(date_settings["server_current_date"], 'server_current_date');
 
-        // var current_date_display = 
-        //     curr_time[1]    + " "   + 
-        //     curr_time[2]    + ", "  + 
-        //     curr_time[3]    + " "   + 
-        //     currentHours    + ":"   + 
-        //     currentMinutes  + ":"   + 
-        //     currentSeconds  + " "   + timeOfDay;
+//         console.log('l 1158' + date_settings);
 
-        // Update the time display
-        document.getElementById("clock-game").firstChild.nodeValue = this.getClock('display');
-    }.bind(this), 1000);
-}
+//         document.getElementById("clock").firstChild.nodeValue = server_current_date_display;
+
+//         console.log('test 1084');
+//         console.log(app_current_date_display);
+//         console.log(date_settings);
+//     }.bind(this), 1000);
+// }
 
 game_core.prototype.create_physics_simulation = function() {
 

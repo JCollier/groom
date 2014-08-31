@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+path {
+  fill: none;
+  stroke-linejoin: round;
+}
+
+.land {
+  fill: #bbb;
+}
+
+.states,
+.hexagons path {
+  stroke: #fcf;
+  opacity: 0.8;
+  stroke-width: 0.015em;
+}
+
+#state-borders {
+    fill: none;
+    stroke: #585858;
+    stroke-width: 1.5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+
+svg {
+  background: #eeeeef;
+}
+
+.sphere {
+  fill: #fff;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+</style>
+<body>
+<script src="http://192.168.220.142/groom/d3.js"></script>
+<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+<script src="http://192.168.220.142/groom/hexbin.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = 960,
+    height = 960,
+    scale0 = (width - 1) / 2 / Math.PI,
+    parseDate = d3.time.format("%x").parse;
+
+var color = d3.time.scale()
+    .domain([new Date(1962, 0, 1), new Date(2006, 0, 1)])
+    .range(["black", "steelblue"])
+    .interpolate(d3.interpolateLab);
+
+// var hexradius = 16;
+
+// var hexbin = d3.hexbin()
+//     .size([width, height])
+//     .radius(hexradius);
+
+// var radius = d3.scale.sqrt()
+//     .domain([0, 12])
+//     .range([0, (hexradius*7)]);
+
+var hexbin = d3.hexbin()
+    .size([width, height])
+    .radius(3);
+
+// var radius = d3.scale.linear()
+//     .domain([0, 12])
+//     .range([0, 9]);
+
+var projection = d3.geo.albers()
+    .scale(1000)
+    .translate([width / 2, height / 2])
+    .precision(.1);
+
+// var projection = d3.geo.eisenlohr()
+//     .scale(237)
+//     .translate([width / 2, height / 2])
+//     .precision(.1);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+// var zoom = d3.behavior.zoom()
+//     .translate([width / 2, height / 2])
+//     .scale(scale0)
+//     .scaleExtent([scale0, 32 * scale0])
+//     .on("zoom", zoomed);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g");
+
+// var width = 960,
+//     height = 960,
+//     scale0 = (width - 1) / 2 / Math.PI;
+
+// // var projection = d3.geo.lagrange();
+
+
+
+// var path = d3.geo.path()
+//     .projection(projection);
+
+// var svg = d3.select("body").append("svg")
+//     .attr("width", width)
+//     .attr("height", height)
+//   .append("g");
+
+var g = svg.append("g");
+
+svg.append("rect")
+    .attr("class", "overlay")
+    .attr("width", width)
+    .attr("height", height);
+
+// svg
+//     .call(zoom)
+//     .call(zoom.event);
+
+d3.json("http://192.168.220.142/groom/world-110m.json", function(error, world) {
+  g.append("path")
+      .datum({type: "Sphere"})
+      .attr("class", "sphere")
+      .attr("d", path);
+
+    g.append("path")
+      .datum(topojson.feature(world,  world.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+  g.append("path")
+      .datum(topojson.mesh(world, world.objects.states.geometries, function(a, b) { return a !== b; }))
+      .attr("class", "states")
+      .attr("id", "state-borders")
+      .attr("d", path);
+
+  g.append("path")
+      .datum(topojson.merge(world, world.objects.countries.geometries))
+      .attr("class", "land")
+      .attr("d", path);
+
+  g.append("path")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+});
+
+queue()
+    .defer(d3.json, "http://192.168.220.142/groom/world-110m.json")
+    // .defer(d3.tsv, "http://192.168.220.142/groom/readme-auts.tsv")
+    .defer(d3.tsv, "http://192.168.220.142/groom/us_housing_simplified_generated.tsv")
+    .await(ready);
+
+function drawWalmarts(error, world, walmarts) {
+    walmarts.forEach(function(d) {
+        var p = projection(d);
+        d[0] = p[0], d[1] = p[1];
+    });
+
+    // svg.append("path")
+    //     .datum(topojson.feature(world, world.objects.land))
+    //     .attr("class", "land")
+    //     .attr("d", path);
+
+    // svg.append("path")
+    //     .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+    //     .attr("class", "countries")
+    //     .attr("d", path);
+
+    window.errorvar = error;
+    window.world    = world;
+    window.walmarts = walmarts;
+
+    // console.log(walmarts);
+
+    svg.append("g")
+        .attr("class", "hexagons")
+        .selectAll("path")
+        .data(hexbin(walmarts).sort(function(a, b) {return b.length - a.length;}))
+
+        .enter().append("path")
+            .attr("d", function(d) { return hexbin.hexagon(); })
+            .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+            .style("fill", function(d) { return color(d3.median(d, function(d) { return +d.date; })); });
+}
+
+function ready(error, world, walmarts) {
+    drawWalmarts(error, world, walmarts);
+}
+
+// function zoomed() {
+//     projection
+//         .translate(zoom.translate())
+//         .scale(zoom.scale());
+
+//     g.selectAll("path")
+//         .attr("d", path);
+
+//     // var errorvar = window.errorvar;
+//     // var us = window.us;
+//     // var walmarts = window.walmarts;
+
+//     if (typeof walmarts != 'undefined' && typeof us != 'undefined') {
+//         console.log(walmarts);
+//         console.log(us);
+//         ready(errorvar, world, walmarts);
+
+//         // console.log(d3.tsv);
+//         alert('test!');
+//     }
+// }
+
+d3.select(self.frameElement).style("height", height + "px");
+
+console.log(svg);
+
+</script>
