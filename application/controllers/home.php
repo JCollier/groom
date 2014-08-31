@@ -26,7 +26,7 @@ class Home extends CI_Controller {
 // -76.25  41.00   72  25  3
 // -76.00  41.00   72  25  3
 
-            $end_string = "\t72\t25\t3\n";
+            $end_string = "\t72\t25\t3";
 
             $regions = array(
                 array(
@@ -36,44 +36,176 @@ class Home extends CI_Controller {
                 array(
                     "x_start" => 77.50,
                     "y_start" => 42.00,
-                    "bg_color" => 'blue'
+                    // "bg_color" => '#3333ff'
                 ),
                 array(
                     "x_start" => 75.00,
                     "y_start" => 42.00,
+                    // "bg_color" => '#3333ff'
                 ),
+
+                array(
+                    "x_start" => 80.00,
+                    "y_start" => 41.00,
+                    // "bg_color" => '#ff3333'
+                ),
+                array(
+                    "x_start" => 77.50,
+                    "y_start" => 41.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 75.00,
+                    "y_start" => 41.00,
+                    // "bg_color" => '#ff3333'
+                ),
+
+                // array(
+                //     "x_start" => 80.00,
+                //     "y_start" => 40.00,
+                //     // "bg_color" => '#333333'
+                // ),
+                // array(
+                //     "x_start" => 77.50,
+                //     "y_start" => 40.00,
+                //     // "bg_color" => '#33ff33'
+                // ),
+                // array(
+                //     "x_start" => 75.00,
+                //     "y_start" => 40.00,
+                //     // "bg_color" => '#333333'
+                // ),
             );
 
-            $string_whole = "0\t1\tPCT_Renter\tPCT_Owner\tPCT_Vacant\n";
+
+            // foreach ($regions as $region) {
+            //     $tmp[] = $region;
+
+            //     var_dump(($r % 4));
+
+            //     $r = $r + 1;
+            // }
+
+            $string_whole = "id\t0\t1\tPCT_Renter\tPCT_Owner\tPCT_Vacant\tPCT_Background\n";
+
+            $r = 1;
+            $p = 1;
+
+            $s = 1;
+
+            $algo_colors = 
+                array(
+                    'ff0000',
+                    '00ff00',
+                    'ffff00',
+                    '0000ff',
+                    'ffa500',
+                    'bb00ff',
+                );
+
+            $s = 1;
 
             foreach ($regions as $region) {
                 $n = $region['x_start'];
+
+                $r_mod = ($r % 3);
+
+                // var_dump( $r_mod );
+
+                $s_mod = ($r % 3);
+
+                $color_alt_value = ($s_mod > 0)
+                    ? 'f'
+                    : '0';
+
+                // $r1 = $group_colors[($r_mod)][0][0];
+                // $r2 = $group_colors[($r_mod)][0][0];
+                // $g1 = $group_colors[($r_mod)][0][2];
+                // $g2 = $group_colors[($r_mod)][0][2];
+                // $b1 = $group_colors[($r_mod)][0][4];
+                // $b2 = $group_colors[($r_mod)][0][4];
+
+                // var_dump( $s_mod );
+
+                // var_dump( ($r_mod) );
+                // var_dump( $algo_colors[($r_mod)] );
+
+                // var_dump( count($algo_colors) );
+                // var_dump( ($r_mod-1) );
+                // var_dump( $algo_colors[($r_mod-1)] );
+
+                $q = $r;
+
+                if ($r_mod == 0) {
+                    $q = $q + 1;
+                }
+
+                // var_dump( $r_mod );
+
+                // var_dump( count($algo_colors));
+
+                // var_dump( ($r-1) % count($algo_colors) );
+
+                $q = (($r-1) % (count($algo_colors)));
+
+                // var_dump( $q );
+
+                $r1 = $algo_colors[($q)][0];
+                $r2 = $algo_colors[($q)][1];
+                $g1 = $algo_colors[($q)][2];
+                $g2 = $algo_colors[($q)][3];
+                $b1 = $algo_colors[($q)][4];
+                $b2 = $algo_colors[($q)][5];
+
+                // var_dump( array($r1, $r2, $g1, $g2, $b1, $b2) );
 
                 for ($k=1; $k<12; $k++) {
                     $n = $n - 0.25;
                     $y = $region['y_start'];
 
-                    $bg_color = !empty($region['bg_color'])
-                        ? $region['bg_color']
-                        : 'black';
+                    $colors = array($r1, $r2, $g1, $g2, $b1, $b2);
 
-                    for ($i=1; $i<=6; $i++) {
-                        $y = $y-0.27;
-                        $x = $n - ($i*0.23);
+                    // var_dump($colors);
+                    // die();
+
+                    // var_dump($k_mod);
+
+                        for ($i=1; $i<=6; $i++) {
+                            $y = $y-0.27;
+                            $x = $n - ($i*0.23);
+
+                        $bg_color_new = "#" . $r1 . $r2 . $g1 . $g2 . $b1 . $b2; 
+
+                        // var_dump($bg_color_new);
+
+                        $bg_color = !empty($region['bg_color'])
+                            ? $region['bg_color']
+                            : $bg_color_new;
 
                         $string = 
+                            $p . 
+                            "\t" . 
                              "-" . 
                             money_format('%.2n', $x) . 
                             "\t" . 
                             money_format('%.2n', $y) . 
+                            $end_string .
                             "\t" . 
                             $bg_color . 
-                            $end_string;
+                            "\n";
 
                         $string_whole .= $string;
-                    }
-                }
-            }
+
+                        $p = $p + 1;
+                        // $s = $s + 1;
+                    };
+
+                    
+                };
+
+                $r = $r + 1;
+                $s = $s + 1;
+            };
 
             echo($string_whole);
 

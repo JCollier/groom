@@ -11,7 +11,7 @@ d3.hexbin = function() {
 
   function hexbin(points) {
     console.log(points);
-    
+
     var binsById = {};
 
     points.forEach(function(point, i) {
@@ -37,9 +37,6 @@ d3.hexbin = function() {
         bin.y = pj * dy;
       }
     });
-
-    
-    console.log(binsById);
 
     return d3.values(binsById);
   }

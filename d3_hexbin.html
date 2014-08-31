@@ -186,9 +186,9 @@ function drawWalmarts(error, world, walmarts) {
     //     .attr("class", "countries")
     //     .attr("d", path);
 
-    window.errorvar = error;
-    window.world    = world;
-    window.walmarts = walmarts;
+    // window.errorvar = error;
+    // window.world    = world;
+    // window.walmarts = walmarts;
 
     // console.log(walmarts);
 
@@ -197,10 +197,25 @@ function drawWalmarts(error, world, walmarts) {
         .selectAll("path")
         .data(hexbin(walmarts).sort(function(a, b) {return b.length - a.length;}))
 
+
+        // .on( "mouseover", function(d)
+        // {
+        // d3.select(this).attr( "stroke", "#f00" ).attr( "stroke-width", 2 );
+        // // $("#text").html("<h4>Average "+ attribute_field+" Rate: "+Math.round(averageFunction(d))+"%</h4>");
+        // })
+        // .on( "mouseout", function(d)
+        // {
+        // d3.select(this).attr( "stroke", "none" );
+        // })
+
         .enter().append("path")
             .attr("d", function(d) { return hexbin.hexagon(); })
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-            .style("fill", function(d) { return color(d3.median(d, function(d) { return +d.date; })); });
+            .style(
+                "fill", function(d) { 
+                    return d.color = d[0].PCT_Background;
+                }
+            );
 }
 
 function ready(error, world, walmarts) {
