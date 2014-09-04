@@ -160,7 +160,7 @@ if('undefined' != typeof(global)) frame_time = 45; //on server we run at 45ms, 2
             getHexMap();
         };
 
-        this.loadScript('http://192.168.220.142/groom/hexmap.js', hexModel);
+        this.loadScript('http://192.168.220.143/groom/hexmap.js', hexModel);
 
         alert('done');
 
@@ -1123,7 +1123,7 @@ game_core.prototype.updateClock = function(){
 
 game_core.prototype.loadScript = function(url, callback){
     // var js = document.createElement("script");
-    // var jsFilePath = 'http://192.168.220.142/groom/hexmap.js';
+    // var jsFilePath = 'http://192.168.220.143/groom/hexmap.js';
 
     // js.type = "text/javascript";
     // js.src = jsFilePath;

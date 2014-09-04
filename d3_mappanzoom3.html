@@ -28,7 +28,7 @@ svg {
 }
 
 </style>
-<script src="http://192.168.220.142/groom/d3.js"></script>
+<script src="http://192.168.220.143/groom/d3.js"></script>
 <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <body>
@@ -70,7 +70,7 @@ svg
     .call(zoom)
     .call(zoom.event);
 
-d3.json("http://192.168.220.142/groom/world-110m.json", function(error, world) {
+d3.json("http://192.168.220.143/groom/world-110m.json", function(error, world) {
   g.append("path")
       .datum({type: "Sphere"})
       .attr("class", "sphere")

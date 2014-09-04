@@ -50,11 +50,13 @@ svg {
 
 </style>
 <body>
-<script src="http://192.168.220.142/groom/d3.js"></script>
+<script src="http://192.168.220.143/groom/d3.js"></script>
 <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
-<script src="http://192.168.220.142/groom/hexbin.js"></script>
+<script src="http://192.168.220.143/groom/hexbin.js"></script>
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://192.168.220.143/groom/jquery.zoomooz.js"></script>
 <script>
 
 var width = 960,
@@ -136,7 +138,7 @@ svg.append("rect")
 //     .call(zoom)
 //     .call(zoom.event);
 
-d3.json("http://192.168.220.142/groom/world-110m.json", function(error, world) {
+d3.json("http://192.168.220.143/groom/world-110m.json", function(error, world) {
   g.append("path")
       .datum({type: "Sphere"})
       .attr("class", "sphere")
@@ -165,9 +167,9 @@ d3.json("http://192.168.220.142/groom/world-110m.json", function(error, world) {
 });
 
 queue()
-    .defer(d3.json, "http://192.168.220.142/groom/world-110m.json")
-    // .defer(d3.tsv, "http://192.168.220.142/groom/readme-auts.tsv")
-    .defer(d3.tsv, "http://192.168.220.142/groom/us_housing_simplified_generated.tsv")
+    .defer(d3.json, "http://192.168.220.143/groom/world-110m.json")
+    // .defer(d3.tsv, "http://192.168.220.143/groom/readme-auts.tsv")
+    .defer(d3.tsv, "http://192.168.220.143/groom/us_housing_simplified_generated.tsv")
     .await(ready);
 
 function drawWalmarts(error, world, walmarts) {
@@ -209,13 +211,20 @@ function drawWalmarts(error, world, walmarts) {
         // })
 
         .enter().append("path")
+            // .attr("class", function(d) { return 'zoomTarget'; })
+            .attr("id", function(d) { return 'hex_id_' + d[0].id; })
             .attr("d", function(d) { return hexbin.hexagon(); })
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-            .style(
-                "fill", function(d) { 
-                    return d.color = d[0].PCT_Background;
-                }
-            );
+            .style("fill", function(d) { return d.color = d[0].PCT_Background; });
+            // .append("div")
+            // .attr("class", function(d) { return 'zoomTarget'; })
+            // .style("width", '5px')
+            // .style("height", '5px');
+
+
+    d3.behavior.zoom(d3.select("#hex_id_131"));
+
+    // console.log();
 }
 
 function ready(error, world, walmarts) {
@@ -249,3 +258,7 @@ d3.select(self.frameElement).style("height", height + "px");
 console.log(svg);
 
 </script>
+
+<!-- <div class="zoomTarget" style="height:100px; width:140px;">
+    somediv
+</div> -->

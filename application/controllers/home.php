@@ -29,6 +29,7 @@ class Home extends CI_Controller {
             $end_string = "\t72\t25\t3";
 
             $regions = array(
+                // 1
                 array(
                     "x_start" => 80.00,
                     "y_start" => 42.00,
@@ -44,6 +45,14 @@ class Home extends CI_Controller {
                     // "bg_color" => '#3333ff'
                 ),
 
+
+
+                // 2
+                array(
+                    "x_start" => 82.50,
+                    "y_start" => 41.00,
+                    // "bg_color" => '#333333'
+                ),
                 array(
                     "x_start" => 80.00,
                     "y_start" => 41.00,
@@ -54,56 +63,248 @@ class Home extends CI_Controller {
                     "y_start" => 41.00,
                     // "bg_color" => '#333333'
                 ),
+
+
+
+                // 3
                 array(
-                    "x_start" => 75.00,
-                    "y_start" => 41.00,
+                    "x_start" => 85.00,
+                    "y_start" => 40.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 82.50,
+                    "y_start" => 40.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 80.00,
+                    "y_start" => 40.00,
                     // "bg_color" => '#ff3333'
                 ),
 
+
+                // // 4
                 // array(
-                //     "x_start" => 80.00,
+                //     "x_start" => 92.50,
                 //     "y_start" => 40.00,
                 //     // "bg_color" => '#333333'
                 // ),
                 // array(
-                //     "x_start" => 77.50,
-                //     "y_start" => 40.00,
-                //     // "bg_color" => '#33ff33'
-                // ),
-                // array(
-                //     "x_start" => 75.00,
+                //     "x_start" => 90.00,
                 //     "y_start" => 40.00,
                 //     // "bg_color" => '#333333'
                 // ),
+                // array(
+                //     "x_start" => 87.50,
+                //     "y_start" => 40.00,
+                //     // "bg_color" => '#ff3333'
+                // ),
+
+
+                // 4
+                array(
+                    "x_start" => 85.00,
+                    "y_start" => 39.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 82.50,
+                    "y_start" => 39.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 80.00,
+                    "y_start" => 39.00,
+                    // "bg_color" => '#ff3333'
+                ),
+
+
+                // 5
+                array(
+                    "x_start" => 85.00,
+                    "y_start" => 38.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 82.50,
+                    "y_start" => 38.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 80.00,
+                    "y_start" => 38.00,
+                    // "bg_color" => '#ff3333'
+                ),
+
+
+
+                // 6
+                array(
+                    "x_start" => 85.00,
+                    "y_start" => 37.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 82.50,
+                    "y_start" => 37.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 80.00,
+                    "y_start" => 37.00,
+                    // "bg_color" => '#ff3333'
+                ),
+
+
+                // 7
+                array(
+                    "x_start" => 85.00,
+                    "y_start" => 36.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 82.50,
+                    "y_start" => 36.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 80.00,
+                    "y_start" => 36.00,
+                    // "bg_color" => '#ff3333'
+                ),
+
+
+                // // 8
+                // array(
+                //     "x_start" => 92.50,
+                //     "y_start" => 39.00,
+                //     // "bg_color" => '#333333'
+                // ),
+                // array(
+                //     "x_start" => 90.00,
+                //     "y_start" => 39.00,
+                //     // "bg_color" => '#333333'
+                // ),
+                // array(
+                //     "x_start" => 87.50,
+                //     "y_start" => 39.00,
+                //     // "bg_color" => '#333333'
+                // ),
+
+
+
+                // 7
+                array(
+                    "x_start" => 92.50,
+                    "y_start" => 38.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 90.00,
+                    "y_start" => 38.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 87.50,
+                    "y_start" => 38.00,
+                    // "bg_color" => '#333333'
+                ),
+
+
+
+                // 8
+                array(
+                    "x_start" => 92.50,
+                    "y_start" => 37.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 90.00,
+                    "y_start" => 37.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 87.50,
+                    "y_start" => 37.00,
+                    // "bg_color" => '#333333'
+                ),
+
+
+
+                // 9
+                array(
+                    "x_start" => 92.50,
+                    "y_start" => 36.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 90.00,
+                    "y_start" => 36.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 87.50,
+                    "y_start" => 36.00,
+                    // "bg_color" => '#333333'
+                ),
+
+
+
+                // 10
+                array(
+                    "x_start" => 92.50,
+                    "y_start" => 35.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 90.00,
+                    "y_start" => 35.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 87.50,
+                    "y_start" => 35.00,
+                    // "bg_color" => '#333333'
+                ),
+
+
+                // 10
+                array(
+                    "x_start" => 85.00,
+                    "y_start" => 35.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 82.50,
+                    "y_start" => 35.00,
+                    // "bg_color" => '#333333'
+                ),
+                array(
+                    "x_start" => 80.00,
+                    "y_start" => 35.00,
+                    // "bg_color" => '#333333'
+                ),
             );
 
-
-            // foreach ($regions as $region) {
-            //     $tmp[] = $region;
-
-            //     var_dump(($r % 4));
-
-            //     $r = $r + 1;
-            // }
-
-            $string_whole = "id\t0\t1\tPCT_Renter\tPCT_Owner\tPCT_Vacant\tPCT_Background\n";
+            $string_whole = "id\t0\t1\tPCT_Renter\tPCT_Owner\tPCT_Vacant\tPCT_Background\t PCT_Region_Id\n";
 
             $r = 1;
             $p = 1;
+            $s = 1;
+
+            $algo_colors = array(
+                'c23d4b',
+                '4387c7',
+                '1d7d3d',
+                'f1ca1c',
+                '8177b7',
+                'e16326',
+            );
 
             $s = 1;
 
-            $algo_colors = 
-                array(
-                    'ff0000',
-                    '00ff00',
-                    'ffff00',
-                    '0000ff',
-                    'ffa500',
-                    'bb00ff',
-                );
-
-            $s = 1;
+            $q = 0;
 
             foreach ($regions as $region) {
                 $n = $region['x_start'];
@@ -114,50 +315,39 @@ class Home extends CI_Controller {
 
                 $s_mod = ($r % 3);
 
+                
+                // Horizontal swathes of land
+                // if (($r % 2) == 0) {
+                //     $q = $q + 1;
+                // }
+
+                // if (($r % 6) == 0) {
+                //     $q = $q + 1;
+                // }
+
                 $color_alt_value = ($s_mod > 0)
                     ? 'f'
                     : '0';
 
-                // $r1 = $group_colors[($r_mod)][0][0];
-                // $r2 = $group_colors[($r_mod)][0][0];
-                // $g1 = $group_colors[($r_mod)][0][2];
-                // $g2 = $group_colors[($r_mod)][0][2];
-                // $b1 = $group_colors[($r_mod)][0][4];
-                // $b2 = $group_colors[($r_mod)][0][4];
-
-                // var_dump( $s_mod );
-
-                // var_dump( ($r_mod) );
-                // var_dump( $algo_colors[($r_mod)] );
-
-                // var_dump( count($algo_colors) );
-                // var_dump( ($r_mod-1) );
-                // var_dump( $algo_colors[($r_mod-1)] );
-
-                $q = $r;
-
-                if ($r_mod == 0) {
-                    $q = $q + 1;
-                }
-
-                // var_dump( $r_mod );
-
-                // var_dump( count($algo_colors));
-
-                // var_dump( ($r-1) % count($algo_colors) );
-
-                $q = (($r-1) % (count($algo_colors)));
-
+                // $q = $r;
+                
+                $q = ($q % 6);
                 // var_dump( $q );
 
-                $r1 = $algo_colors[($q)][0];
-                $r2 = $algo_colors[($q)][1];
-                $g1 = $algo_colors[($q)][2];
-                $g2 = $algo_colors[($q)][3];
-                $b1 = $algo_colors[($q)][4];
-                $b2 = $algo_colors[($q)][5];
+                // if ($q % 6) {
+                //     $q_color = ((($q + rand(0, 500)) % 6) % 6);
+                // } else {
+                //     $q_color = $q;
+                // }
 
-                // var_dump( array($r1, $r2, $g1, $g2, $b1, $b2) );
+                $q_color = $q;
+
+                $r1 = $algo_colors[($q_color)][0];
+                $r2 = $algo_colors[($q_color)][1];
+                $g1 = $algo_colors[($q_color)][2];
+                $g2 = $algo_colors[($q_color)][3];
+                $b1 = $algo_colors[($q_color)][4];
+                $b2 = $algo_colors[($q_color)][5];
 
                 for ($k=1; $k<12; $k++) {
                     $n = $n - 0.25;
@@ -165,22 +355,19 @@ class Home extends CI_Controller {
 
                     $colors = array($r1, $r2, $g1, $g2, $b1, $b2);
 
-                    // var_dump($colors);
-                    // die();
-
-                    // var_dump($k_mod);
-
                         for ($i=1; $i<=6; $i++) {
                             $y = $y-0.27;
                             $x = $n - ($i*0.23);
 
                         $bg_color_new = "#" . $r1 . $r2 . $g1 . $g2 . $b1 . $b2; 
 
-                        // var_dump($bg_color_new);
-
                         $bg_color = !empty($region['bg_color'])
                             ? $region['bg_color']
                             : $bg_color_new;
+
+                        $region_id = !empty($region_id['region_id'])
+                            ? $region_id['region_id']
+                            : 0;
 
                         $string = 
                             $p . 
@@ -192,6 +379,8 @@ class Home extends CI_Controller {
                             $end_string .
                             "\t" . 
                             $bg_color . 
+                            "\t" . 
+                            $region_id . 
                             "\n";
 
                         $string_whole .= $string;
@@ -205,6 +394,7 @@ class Home extends CI_Controller {
 
                 $r = $r + 1;
                 $s = $s + 1;
+                $q = $q + 1;
             };
 
             echo($string_whole);
