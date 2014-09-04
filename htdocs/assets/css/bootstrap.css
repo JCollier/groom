@@ -4335,6 +4335,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .label-info[href]:focus {
   background-color: #31b0d5;
 }
+.label-info-light {
+  background-color: #ffffff;
+}
+..label-info-light[href]:hover,
+..label-info-light[href]:focus {
+  background-color: #31b0d5;
+  opacity:1.0 !important;
+}
 .label-warning {
   background-color: #f0ad4e;
 }
