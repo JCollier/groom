@@ -18,7 +18,15 @@ class Home extends CI_Controller {
     function index()
     {
         if ($this->session->userdata('logged_in')) {
-            $data = $this->template->loadViewData('home');
+            $logged_in = ($this->session->userdata('logged_in'));
+
+            $this->load->helper(array('form'));
+            $data = $this->template->loadViewData('home', $logged_in);
+
+            $data['logged_in']          = $logged_in;
+            $data['validation_errors']  = validation_errors();
+            $data['login_form']         = form_open('verifylogin');
+            $data['home_rows']          = $this->getHomeRows('habits', 'habits');
 
             //$this->user->insertUserIntoUserExtra(1, array()); will make  use of this later
             $data['display_params']['users'] = $this->user->getUsersExtraDisplay(4);
@@ -51,6 +59,17 @@ class Home extends CI_Controller {
         } else {
             redirect('login', 'refresh');
         }
+    }
+
+    function getHomeRows($home_row_div_type, $home_row_subdiv_type)
+    {
+        $home_rows = array();
+
+        // if ($home_row_subdiv_type == 'habits') {
+        //     $home_rows = array_fill($home_rows, 16);
+        // }
+
+        return array();
     }
 
     function logout()
