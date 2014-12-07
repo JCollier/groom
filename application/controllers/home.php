@@ -55,6 +55,9 @@ class Home extends CI_Controller {
 
             $data['template'] = $this->template->buildTemplateFromData($data, 'home');
 
+            var_dump($data);
+            die();
+
             $this->load->view('home_view', $data);
         } else {
             redirect('login', 'refresh');

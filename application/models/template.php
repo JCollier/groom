@@ -59,8 +59,8 @@ Class Template extends CI_Model {
     protected function _getLinksFromConfig( $page = null, $type = 'footer' ) {
         $name = $type . '_links';
 
-        if( !empty( $this->ini->{$page} ) && 
-            !empty( $this->ini->{$page}['template'] ) && 
+        if( !empty( $this->ini->{$page} ) &&
+            !empty( $this->ini->{$page}['template'] ) &&
             !empty( $this->ini->{$page}['template'][$name] ) ) {
 
             return $this->ini->{$page}['template'][$name];
@@ -82,7 +82,7 @@ Class Template extends CI_Model {
             foreach( $this->page as $key => $page_data ) {
                 $page_name = $page_data['page'];
 
-                if( in_array( $page_data['page'], $links_array ) && 
+                if( in_array( $page_data['page'], $links_array ) &&
                     $user_level >= $page_data['permissions'] ) {
                     $links_header[] = array(
                         'page'      => $page_name,
@@ -126,7 +126,7 @@ Class Template extends CI_Model {
         return array( array( 'url' => 'home/logout', 'label' => 'logout' ) );
     }
 
-    public function buildTemplateFromData($data, $page = 'home') 
+    public function buildTemplateFromData($data, $page = 'home')
     {
         foreach ($data as $key => $param) {
             $this->twiggy->set($key, $param);
@@ -135,7 +135,7 @@ Class Template extends CI_Model {
         return $this->twiggy->template($page)->display();
     }
 
-    public function getStaticFromDb($page, $template) 
+    public function getStaticFromDb($page, $template)
     {
         $sql =  "SELECT `static_content` FROM groom_common.statics " .
                 "WHERE `page`='{$page}' AND `template`='{$template}';";
@@ -151,7 +151,7 @@ Class Template extends CI_Model {
         $data['userid']     = $session_data['id'];
         $level              = $this->user->getUserLevelById($data['userid']);
 
-        $data['assets'] = $this->template->loadAssets(  
+        $data['assets'] = $this->template->loadAssets(
             array(
                 array('css' => array('main', 'global')),
                 array('jpg' => array('sprite_global')),
@@ -167,7 +167,7 @@ Class Template extends CI_Model {
         $data['links_header']                   = $this->template->getHeaderLinks($page, $level);
         $data['links_footer']                   = $this->template->getFooterLinks($page);
 
-        if ($page == 'home') {
+        if ($page == 'home' || $page == 'userhome') {
             $data['bg_portrait'] = $data['base_url'] . 'htdocs/images_1/default/bg_img_3.jpg';
         }
 

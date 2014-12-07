@@ -2,7 +2,45 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Welcome to Gfits</title>
+        <script>
+            function getUsers( p, n, s ) {
+                console.log( 'loaded!' );
+
+                if( p == "" ) {
+                    document.getElementById( "txtHint" ).innerHTML = "";
+                    return;
+                }
+
+                if( window.XMLHttpRequest ) { // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else { // code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+                xmlhttp.onreadystatechange = function() {
+                    if( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+                        document.getElementById( "item-upload-block" ).innerHTML = xmlhttp.responseText;
+                    }
+                }
+
+                var url = "";
+
+                xmlhttp.open( "GET","../groom/ajax/get_item_upload_block?p=" + p +
+                                                           "&n=" + n +
+                                                           "&s=" + s, true ) ;
+                xmlhttp.send();
+
+                document.getElementById('userhome-nav-container').scrollIntoView();
+            }
+
+            window.onload = getUsers( 1, 5, 'id' );
+        </script>
+
+        <script type="text/javascript">
+            console.log( 'testJS!' );
+        </script>
+        <title>User Home Page</title>
         <script src="{{ js_path['global'] }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ css_path['global'] }}">
         <link rel="stylesheet" type="text/css" href="{{ css_path['bootstrap'] }}">
@@ -21,50 +59,7 @@
                 bg-color-gray
                 width-full
                 pos-float-left">
-        <div style="height:1700px; width:100%; position:absolute; top:0; left:0; z-index:10;">
-
-            <!-- 1 -->
-            <div style="background-color:#ffffff; height:50%; display:none;">
-                <div style="height:70%; width:100%; border:1px solid black;">
-                    <div>1</div>
-                </div>
-            </div>
-
-            <div style="background-color:#ffffff; height:50%; display:none;">
-                <div style="height:30%; width:100%; border:1px solid black;">
-
-                    <div>
-                        Qty1 : <input onblur="findTotal()" type="text" name="qty" id="qty2"/><br>
-                        Qty2 : <input onblur="findTotal()" type="text" name="qty" id="qty2"/><br>
-                        Qty3 : <input onblur="findTotal()" type="text" name="qty" id="qty3"/><br>
-                        Qty4 : <input onblur="findTotal()" type="text" name="qty" id="qty4"/><br>
-                        Qty5 : <input onblur="findTotal()" type="text" name="qty" id="qty5"/><br>
-                        Qty6 : <input onblur="findTotal()" type="text" name="qty" id="qty6"/><br>
-                        Qty7 : <input onblur="findTotal()" type="text" name="qty" id="qty7"/><br>
-                        Qty8 : <input onblur="findTotal()" type="text" name="qty" id="qty8"/><br>
-                        <br><br>
-                        Total : <input type="text" name="total" id="total"/>
-                    </div>
-                    <div>testing</div>
-
-                    <script type="text/javascript">
-                        function findTotal(){
-                            var arr = document.getElementsByName('qty');
-                            var tot = 0;
-
-                            for (var i=0;i<arr.length;i++){
-                                if (parseInt(arr[i].value)) {
-                                    tot += parseInt(arr[i].value);
-                                }
-                            }
-
-                            document.getElementById('total').value = tot;
-                        }
-                    </script>
-                </div>
-            </div>
-
-
+        <div style="height:27%; width:100%; position:absolute; top:0; left:0; z-index:10;">
             <div style="
                     /* border-top:2px solid #eb7260; */
                     background-color:#ffffff;
@@ -75,47 +70,11 @@
                     <div style="height:30%; width:100%;"></div>
             </div>
             <div style="height:100%;">
-                <div style="height:24%;">
-<!--                     <div style="background-color:#ffffff; height:16%; opacity:0.35;">
-                        <div style="height:30%; width:100%;"></div>
-                            <div style="height:40%; display:inline-block; float:right; padding-right:1%;">
-                                {% for link in links_header %}
-                                    <div align="right" class="label label-info-light" style="opacity:0.6; height:100%; width:180px; float:left; margin:0px 12px 0px 12px; padding:0px; display:table-cell;">
-                                        <a href="{{ link['url'] }}" style="font-size:240%;"><div style="width:100%; padding:0px 10px 0px 10px; line-height:180%;">{{ link['label']}}</div></a>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        <div style="height:30%; width:100%;"></div>
-                    </div>      -->
+                <div style="height:100%;">
                     <div style="width:100%; height:100%; text-align:center; background-color: rgba(211, 213, 212, 0.1);
                     border-bottom: 1px solid #d3d5d4;
                     border-top: 1px solid #d3d5d4;">
-<!--                         <div id="home-input" style="background-color:#ffffff; width:40%; height:60%; margin-top:8%; display:inline-block;">
-
-                        </div> -->
-
                         <div style="width:100%; height:100%; ">
-
-                            <!-- Login User -->
-<!--                             <div style="width:100%; height:100%;">
-                                <div style="width:35%; height:100%; float:left"></div>
-                                <div style="width:30%; height:100%; float:left; margin-left:auto; padding:3% 0 3% 0; margin-right:auto;">
-                                <div style="width:100%; height:100%; background-color:rgba(255, 255, 255, 0.9); border:1px solid rgba(211, 213, 212, 0.6); border-radius:1%; text-align:center;">
-                                    <a href="#">Login</a>
-                                    {{ login_form }}
-                                    <label for="email">Email:</label>
-                                    <input type="text" size="20" id="email" name="email"/>
-                                    <br/>
-                                    <label for="password">Password:</label>
-                                    <input type="password" size="20" id="password" name="password"/>
-                                    <br/>
-                                    <input type="submit" value="Login"/>
-                                    </form>
-                                </div>
-                                </div>
-                                <div style="width:35%; height:100%; float:left"></div>
-                            </div>         -->
-
                             <div style="width:100%; height:100%;">
                                 <div style="width:35%; height:100%; float:left"></div>
                                 <div style="width:30%; height:100%; float:left; text-align:center; margin-left:auto; margin-right:auto;">
@@ -158,25 +117,15 @@
                                             <div style="width:100%; height:20%;"></div>
                                         </div>
                                     </a>
-<!--                                     <div style="width:8%; height:40%; display:inline-block; float:left;">
-                                        <div style="width:100%; height:100%;"></div>
-                                    </div> -->
                                 {% endfor %}
                             </div>
 
                             <div style="width:20%; height:100%; display:inline-block; float:left;">
                                 <div style="width:100%; height:40%;"></div>
                             </div>
-
-<!--                             <div style="width:35%; height:100%; float:left">
-                            </div> -->
                         </div>
                     </div>
                 </div>
-
-                <div style="height:73%; background-color:white; opacity:1.0; display:none;">
-                </div>
-
             </div>
         </div>
         <div style="height:120px; border-top:4px solid #eb7260; background-color:#ffffff; display:none;">
@@ -194,13 +143,31 @@
                 <div id="bg-home-portrait" style="position:absolute; top:0; background-image:url({{ bg_portrait }}); height:3200px; background-repeat:no-repeat; background-position:center top; background-size:100% auto; opacity:0.7;"></div>
             </div>
         </div>
-        <div style="height:18%; width:100%; background-color:#69aba4;">
+
+
+        <div id="userhome-nav-container" style="height:18%; width:100%; background-color:#69aba4;">
             <div style="width:100%; height:100%;">
                 <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-                <div style="width:80%; height:100%; float:left; border-right:1px solid black;">
+                <div style="width:80%; height:100%; float:left; z-index:1000;">
                     <div style="width:100%; height:100%; padding:20px;">
-                        <div id="item-upload-block" style="width:100%; height:100%;">
-                            <div>test item-upload-block</div>
+                        <div id="userhome-nav-block" style="height:200px; width:100%;">
+                            <a style="height:100%; width:20%; display:block; float:left; margin:10px; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 1, 5, 'id' );"><u>1</u></a>
+                            <a style="height:100%; width:20%; display:block; float:left; margin:10px; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 2, 5, 'id' );"><u>2</u></a>
+                            <a style="height:100%; width:20%; display:block; float:left; margin:10px; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 3, 5, 'id' );"><u>3</u></a>
+                            <a style="height:100%; width:20%; display:block; float:left; margin:10px; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 4, 5, 'id' );"><u>4</u></a>
+                        </div>
+
+                        <div id="admin-nav-users-pagination">
+                            <a onclick="console.log('i3uhff'); getUsers( 1, 5, 'id' );"><u>1</u></a>
+                            <a onclick="console.log('i3uhff'); getUsers( 2, 5, 'id' );"><u>2</u></a>
+                            <a onclick="console.log('i3uhff'); getUsers( 3, 5, 'id' );"><u>3</u></a>
+                            <a onclick="console.log('i3uhff'); getUsers( 4, 5, 'id' );"><u>4</u></a>
+                        </div>
+                    </div>
+
+                    <div id="userhome-action-block" style="width:100%; height:100%; display:block;">
+                        <div id="item-upload-block" style="width:100%; height:100%; display:block;">
+                            <div><b>Users info will be listed here.</b></div>
                         </div>
                     </div>
                 </div>
@@ -215,28 +182,6 @@
                     <div style="width:100%; height:100%; padding:1%;">
                         <div style="width:100%; height:100%; text-align:center; background-color:#000000; display:none;">
                             <div style="height:100%; text-align:center; padding-top:2%; padding-bottom:2%">
-
-<!--                 array(
-                    'title'         => 'some title 1',
-                    'description'   => 'some title 1some title 1some title 1some title 1some title 1some title 1some title 1some title 1',
-                    'img_src'       => 'info_1.jpg'
-                ),
-                array(
-                    'title'         => 'some title 2',
-                    'description'   => 'some title 1some title 1some title 1some title 1some title 1some title 1some title 1some title 1',
-                    'img_src'       => 'info_2.jpg'
-                ),
-                array(
-                    'title'         => 'some title 3',
-                    'description'   => 'some title 1some title 1some title 1some title 1some title 1some title 1some title 1some title 1',
-                    'img_src'       => 'info_3.jpg'
-                ),
-                array(
-                    'title'         => 'some title 4',
-                    'description'   => 'some title 1some title 1some title 1some title 1some title 1some title 1some title 1some title 1',
-                    'img_src'       => 'info_4.jpg'
-                ) -->
-
                                 {% for info in display_params.infos %}
                                     <div style="min-width:120px; max-height:320px; {% if not loop.last %}margin-right:2%; {% endif %}width:22%; height:100%; border:1px solid white; display:inline-block;">
                                         <div style="opacity:0.8; background-color:#000011; width:100%; height:20%; float:left;">{{ info.title }}</div>
@@ -263,43 +208,6 @@
                 <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
             </div>
         </div>
-
-<!--         <div style="height:16%; width:100%; background-color:#29aba4;">
-            <div style="width:100%; height:100%;">
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-                <div style="width:80%; height:100%; float:left; border-right:1px solid black;">
-                    <div style="width:100%; height:100%; padding:20px;">
-                        <div style="width:100%; height:100%;"></div>
-                    </div>
-                </div>
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-            </div>
-        </div>
-
-        <div style="height:36%; width:100%; background-color:#29aba4;">
-            <div style="width:100%; height:100%;">
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-                <div style="width:80%; height:100%; float:left; border-right:1px solid black;">
-                    <div style="width:100%; height:100%; padding:20px;">
-                        <div style="width:100%; height:100%; background-color:#000000;"></div>
-                    </div>
-                </div>
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-            </div>
-        </div>
-
-        <div style="height:32%; background-color:#29aba4;">
-
-        </div>
-
-        <div style="height:32%; background-color:#29aba4;">
-
-        </div>
-
-        <div style="height:32%; background-color:#29aba4;">
-
-        </div> -->
-
     </div>
     <div id="container-home" style="overflow-x:hidden; overflow-y:hidden;float:left; width:100%; height:1700px; background-color:#29aba4;" class="bg-color-gray width-full pos-float-left">
         <div style="height:100%; width:100%; background-color:#29aba4;">

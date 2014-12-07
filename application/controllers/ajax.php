@@ -18,7 +18,7 @@ class Ajax extends CI_Controller {
         $this->load->model( 'items' );
     }
 
-    protected function getUserIdFromSession() 
+    protected function getUserIdFromSession()
     {
         $session_data = $this->session->userdata('logged_in');
 
@@ -26,7 +26,7 @@ class Ajax extends CI_Controller {
     }
 
     // function index()
-    // {   
+    // {
     //     $data = array();
 
     //     $this->load->view( 'ajax_view', $data );
@@ -39,7 +39,7 @@ class Ajax extends CI_Controller {
         //     else {
         //         $offset = ( 1 - intval( $page ) ) * intval( $limit );
 
-        //         $sql =  " SELECT * FROM groom_common.users" . 
+        //         $sql =  " SELECT * FROM groom_common.users" .
         //                 " LIMIT ${offset},${limit};";
 
         //         return $this->db->query( $sql )->result_array();
@@ -55,7 +55,31 @@ class Ajax extends CI_Controller {
         $limit  = $params_get_users['n'];
         $sort   = $params_get_users['s'];
 
+        $data['method'] = 'get_users';
         $data['users'] = $this->user->listUsersFromParams( $page, $limit, $sort );
+
+        $this->load->view( 'ajax_view', $data );
+
+        return $data;
+    }
+
+    function get_item_upload_block()
+    {
+        $user_level = 5;
+
+        parse_str( $_SERVER['QUERY_STRING'], $params_get_users );
+
+        $page   = $params_get_users['p'];
+        $limit  = $params_get_users['n'];
+        $sort   = $params_get_users['s'];
+
+        $data['method'] = 'get_item_upload_block';
+        $data['show_item_upload_block'] = (intval($page) == 4);
+        $data['users'] = $this->user->listUsersFromParams( $page, $limit, $sort );
+
+        if ($page == '4') {
+            $data['item_uploader'] = $this->items->renderItemUploader( $page, $limit, $sort );
+        }
 
         $this->load->view( 'ajax_view', $data );
 
@@ -76,10 +100,10 @@ class Ajax extends CI_Controller {
         $user_id = $this->getUserIdFromSession();
 
         if( $user_id > 0 ) {
-            $data['items'] = $this->items->getItemsByUserId(    
-                                                                $user_id, 
-                                                                $page, 
-                                                                $limit, 
+            $data['items'] = $this->items->getItemsByUserId(
+                                                                $user_id,
+                                                                $page,
+                                                                $limit,
                                                                 'value'
                                                             );
         }
@@ -91,9 +115,9 @@ class Ajax extends CI_Controller {
 
         foreach( $data['items'] as $key => $item ) {
             $data['items'][$key]['href'] =  $base_url .
-                                            'htdocs/' .  
-                                            $item['img_folder'] . 
-                                            $item['img_path']   . 
+                                            'htdocs/' .
+                                            $item['img_folder'] .
+                                            $item['img_path']   .
                                             $item['img_name'];
 
             $data['items'][$key]['description_1'] = strtoupper( substr( $item['description'], 0, 16 ) .  ' - $' . $item['value_estimated'] );
@@ -131,5 +155,5 @@ class Ajax extends CI_Controller {
 
     // public function login( $username ) {
     //   echo $param;
-    // }   
+    // }
 }

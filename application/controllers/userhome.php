@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 session_start(); //we need to call PHP's session object to access it through CI
-class Administration extends CI_Controller {
+class Userhome extends CI_Controller {
 
  function __construct()
  {
@@ -14,6 +14,7 @@ class Administration extends CI_Controller {
     $this->ini->admin    = $this->db->loadInits( 'admin' );
 
     $this->load->model( 'template', '', TRUE );
+    $this->load->spark('Twiggy/0.8.5');
 
  }
 
@@ -49,7 +50,11 @@ class Administration extends CI_Controller {
 
             $data['users'] = $this->user->listUsersFromParams( 1, 5 );
 
-            $this->load->view( 'administration_view', $data );
+            $data['bg_portrait'] = $data['base_url'] . 'htdocs/images_1/default/bg_img_3.jpg';
+
+            $data['template'] = $this->template->buildTemplateFromData($data, 'userhome');
+
+            $this->load->view( 'userhome_view', $data );
         }
         else {
           redirect('login', 'refresh');
