@@ -161,6 +161,7 @@ Class Template extends CI_Model {
         $data['base_url']                       = $this->config->config['base_url'];
         $data['image_path']                     = $this->config->config['image_path'];
         $data['js_path']['global']              = $this->config->config['js_global'];
+        $data['js_path']['jquery']              = $this->config->config['js_jquery'];
         $data['css_path']['global']             = $this->config->config['css_global'];
         $data['css_path']['bootstrap']          = $this->config->config['css_bootstrap'];
         $data['css_path']['bootstrap_theme']    = $this->config->config['css_bootstrap_theme'];

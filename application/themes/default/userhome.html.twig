@@ -31,7 +31,8 @@
                                                            "&s=" + s, true ) ;
                 xmlhttp.send();
 
-                document.getElementById('userhome-nav-container').scrollIntoView();
+                //document.getElementById('userhome-nav-container').scrollIntoView();
+                $('html, body').animate({scrollTop:$('#userhome-nav-container').position().top}, 'slow');
             }
 
             window.onload = getUsers( 1, 5, 'id' );
@@ -42,6 +43,7 @@
         </script>
         <title>User Home Page</title>
         <script src="{{ js_path['global'] }}"></script>
+        <script src="{{ js_path['jquery'] }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ css_path['global'] }}">
         <link rel="stylesheet" type="text/css" href="{{ css_path['bootstrap'] }}">
         <link rel="stylesheet" type="text/css" href="{{ css_path['bootstrap_theme'] }}">
@@ -145,24 +147,24 @@
         </div>
 
 
-        <div id="userhome-nav-container" style="height:18%; width:100%; background-color:#69aba4;">
+        <div id="userhome-nav-container" style="height:18%; width:100%; background-color:#f9fbf4;">
             <div style="width:100%; height:100%;">
                 <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
                 <div style="width:80%; height:100%; float:left; z-index:1000;">
-                    <div style="width:100%; height:100%; padding:20px;">
+                    <div style="width:100%; height:100%; padding-top:6%;">
                         <div id="userhome-nav-block" style="height:200px; width:100%;">
-                            <a style="height:100%; width:20%; display:block; float:left; margin:10px; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 1, 5, 'id' );"><u>1</u></a>
-                            <a style="height:100%; width:20%; display:block; float:left; margin:10px; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 2, 5, 'id' );"><u>2</u></a>
-                            <a style="height:100%; width:20%; display:block; float:left; margin:10px; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 3, 5, 'id' );"><u>3</u></a>
-                            <a style="height:100%; width:20%; display:block; float:left; margin:10px; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 4, 5, 'id' );"><u>4</u></a>
+                            <a style="height:100%; width:20%; display:block; float:left; margin-left:4%; margin-right:2%; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 1, 5, 'id' );"><u>LEARN MORE</u></a>
+                            <a style="height:100%; width:20%; display:block; float:left; margin-left:2%; margin-right:2%; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 2, 5, 'id' );"><u>ABOUT US</u></a>
+                            <a style="height:100%; width:20%; display:block; float:left; margin-left:2%; margin-right:2%; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 3, 5, 'id' );"><u>CONTACT US</u></a>
+                            <a style="height:100%; width:20%; display:block; float:left; margin-left:2%; margin-right:4%; border:1px solid black;" onclick="console.log('i3uhff'); getUsers( 4, 5, 'id' );"><u>GET STARTED</u></a>
                         </div>
 
-                        <div id="admin-nav-users-pagination">
+<!--                         <div id="admin-nav-users-pagination">
                             <a onclick="console.log('i3uhff'); getUsers( 1, 5, 'id' );"><u>1</u></a>
                             <a onclick="console.log('i3uhff'); getUsers( 2, 5, 'id' );"><u>2</u></a>
                             <a onclick="console.log('i3uhff'); getUsers( 3, 5, 'id' );"><u>3</u></a>
                             <a onclick="console.log('i3uhff'); getUsers( 4, 5, 'id' );"><u>4</u></a>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div id="userhome-action-block" style="width:100%; height:100%; display:block;">
@@ -179,7 +181,7 @@
             <div style="width:100%; height:100%;">
                 <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
                 <div style="width:80%; height:100%; float:left; border-right:1px solid black;">
-                    <div style="width:100%; height:100%; padding:1%;">
+                    <div style="width:100%; height:100%; padding-left:6%; padding-right:6%;">
                         <div style="width:100%; height:100%; text-align:center; background-color:#000000; display:none;">
                             <div style="height:100%; text-align:center; padding-top:2%; padding-bottom:2%">
                                 {% for info in display_params.infos %}
