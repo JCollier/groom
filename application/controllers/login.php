@@ -19,11 +19,12 @@ class Login extends CI_Controller {
         // $data['username']   = $session_data['username'];
         // $data['userid']     = $session_data['id'];
 
-        $data['assets'] = $this->template->loadAssets(  array(
-                                                        array(  'css' => array( 'main', 'global' ) ),
-                                                        array(  'jpg' => array( 'sprite_global' ) ),
-                                                    )
-                                                );
+        $data['assets'] = $this->template->loadAssets(
+             array(
+                array(  'css' => array( 'main', 'global' ) ),
+                array(  'jpg' => array( 'sprite_global' ) ),
+            )
+        );
 
         $data['base_url']             = $this->config->config['base_url'];
         $data['image_path']           = $this->config->config['image_path'];

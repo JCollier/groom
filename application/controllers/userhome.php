@@ -27,57 +27,50 @@ class Userhome extends CI_Controller {
         $user_name  = $data['username'];
         $user_id    = $data['userid'];
 
-        if( $this->session->userdata( 'logged_in' ) ) {
-            if( $this->user->isUserAdmin( $user_id ) ) {
-                $data['base_url']       = $this->config->config['base_url'];
-                $data['js_global']      = $this->config->config['js_global'];
-
-                $data['base_url']             = $this->config->config['base_url'];
-                $data['image_path']           = $this->config->config['image_path'];
-                $data['js_path']['global']    = $this->config->config['js_global'];
-                $data['js_path']['jquery']    = $this->config->config['js_jquery'];
-
-                $data['css_path']['global']             = $this->config->config['css_global'];
-                $data['css_path']['bootstrap']          = $this->config->config['css_bootstrap'];
-                $data['css_path']['bootstrap_theme']    = $this->config->config['css_bootstrap_theme'];
-
-                $data['assets']         = $this->_getAdminViewByType( 'assets' );
-                $data['head']           = $this->_getAdminViewByType( 'head' );
-
-                $level = $this->user->getUserLevelById( $data['userid'] );
-
-                $data['links_header'] = $this->_getAdminViewByType( 'links_header', $level );
-
-                $data['users'] = $this->user->listUsersFromParams( 1, 5 );
-
-                $data['bg_portrait'] = $data['base_url'] . 'htdocs/images_1/default/bg_img_3.jpg';
-
-                $data['template'] = $this->template->buildTemplateFromData($data, 'userhome');
-
-                $this->load->view( 'userhome_view', $data );
-            }
-            else {
-              redirect('login', 'refresh');
-            }
+        if($this->session->userdata('logged_in')) {
+            $level = $this->user->getUserLevelById($data['userid']);
         }
         else {
-         //If no session, redirect to login page
-         redirect('login', 'refresh');
-       }
+            $user_id    = 0;
+            $level      = 0;
+        }
+
+        $data['base_url']       = $this->config->config['base_url'];
+        $data['js_global']      = $this->config->config['js_global'];
+
+        $data['base_url']             = $this->config->config['base_url'];
+        $data['image_path']           = $this->config->config['image_path'];
+        $data['js_path']['global']    = $this->config->config['js_global'];
+        $data['js_path']['jquery']    = $this->config->config['js_jquery'];
+
+        $data['css_path']['global']             = $this->config->config['css_global'];
+        $data['css_path']['bootstrap']          = $this->config->config['css_bootstrap'];
+        $data['css_path']['bootstrap_theme']    = $this->config->config['css_bootstrap_theme'];
+
+        $data['assets']         = $this->_getAdminViewByType( 'assets' );
+        $data['head']           = $this->_getAdminViewByType( 'head' );
+
+        $data['links_header']   = $this->_getAdminViewByType( 'links_header', $level );
+        $data['users']          = $this->user->listUsersFromParams( 1, 5 );
+        $data['bg_portrait']    = $data['base_url'] . 'htdocs/images_1/default/bg_img_4.jpg';
+        $data['template']       = $this->template->buildTemplateFromData($data, 'userhome');
+
+        $this->load->view( 'userhome_view', $data );
     }
 
     protected function _getAdminViewByType( $type = null, $level = 0 ) {
         switch ( $type ) {
             case 'assets':
-                return $this->template->loadAssets( array(
-                                                    array( 'css' => array( 'main', 'global' ) ),
-                                                    array( 'jpg' => array( 'sprite_global' ) ),
-                                                )
-                                            );
+                return $this->template->loadAssets(
+                        array(
+                        array( 'css' => array( 'main', 'global' ) ),
+                        array( 'jpg' => array( 'sprite_global' ) ),
+                    )
+                );
             case 'head':
                 return '<head>test header</head>';
             case 'links_header':
-                return $this->template->getHeaderLinks( 'admin', $level );
+                return $this->template->getHeaderLinks('admin', $level);
             default:
                 return null;
         }

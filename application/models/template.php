@@ -169,7 +169,7 @@ Class Template extends CI_Model {
         $data['links_footer']                   = $this->template->getFooterLinks($page);
 
         if ($page == 'home' || $page == 'userhome') {
-            $data['bg_portrait'] = $data['base_url'] . 'htdocs/images_1/default/bg_img_3.jpg';
+            $data['bg_portrait'] = $data['base_url'] . 'htdocs/images_1/default/bg_img_4.jpg';
         }
 
         return $data;

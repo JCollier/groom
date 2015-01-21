@@ -63,6 +63,30 @@ class Ajax extends CI_Controller {
         return $data;
     }
 
+
+            /**
+     * the demo for file upload tutorial on codesamplez.com
+     * @return view
+     */
+    function file_upload_demo()
+    {
+        try
+        {
+            if (1==2){
+
+            //if ($this->input->post("submit")){
+                // $this->load->library("app/uploader");
+                // $this->uploader->do_upload();
+            }
+
+            //return $this->view();
+            return null;
+        } catch(Exception $err) {
+            // log_message("error",$err->getMessage());
+            // return show_error($err->getMessage());
+        }
+    }
+
     function get_item_upload_block()
     {
         $user_level = 5;
@@ -74,8 +98,29 @@ class Ajax extends CI_Controller {
         $sort   = $params_get_users['s'];
 
         $data['method'] = 'get_item_upload_block';
-        $data['show_item_upload_block'] = (intval($page) == 4);
-        $data['users'] = $this->user->listUsersFromParams( $page, $limit, $sort );
+
+        $logged_in = $this->session->userdata('logged_in');
+
+        $data['show_login_form'] = (!($logged_in) || (1==1));
+
+        $valid_pages = array(
+            '1' => 'more_info',
+            '2' => 'about',
+            '3' => 'gifts',
+            '4' => 'upload',
+        );
+
+        if ($logged_in) {
+            $data['show_item_upload_block'] = ($valid_pages[$page] == 'upload');
+            $data['show_login_form'] = ($valid_pages[$page] == 'upload');
+
+            $data['users'] = $this->user->listUsersFromParams( $page, $limit, $sort );
+        }
+
+        $this->file_upload_demo();
+
+        $this->load->helper( array( 'form' ) );
+
 
         if ($page == '4') {
             $data['item_uploader'] = $this->items->renderItemUploader( $page, $limit, $sort );
