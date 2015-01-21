@@ -101,25 +101,39 @@ class Ajax extends CI_Controller {
 
         $logged_in = $this->session->userdata('logged_in');
 
-        $data['show_login_form'] = (!($logged_in) || (1==1));
+
 
         $valid_pages = array(
             '1' => 'more_info',
             '2' => 'about',
             '3' => 'gifts',
-            '4' => 'upload',
+            '4' => 'upload'
         );
 
-        if ($logged_in) {
-            $data['show_item_upload_block'] = ($valid_pages[$page] == 'upload');
-            $data['show_login_form'] = ($valid_pages[$page] == 'upload');
+        $show_login_form = true;
+        $show_about_us = false;
 
+        $show_login_form    = (!($logged_in) && in_array($valid_pages[$page], array('upload','gifts')));
+        $show_about_us      = in_array($valid_pages[$page], array('about'));
+        $show_learn_more    = in_array($valid_pages[$page], array('more_info'));
+        $show_upload        = in_array($valid_pages[$page], array('gifts'));
+        $show_gifts         = in_array($valid_pages[$page], array('upload'));
+
+        if ($logged_in) {
+            $show_login_form = false;
             $data['users'] = $this->user->listUsersFromParams( $page, $limit, $sort );
         }
 
+        $data['show_login_form']        = $show_login_form;
+        $data['show_item_upload_block'] = $show_login_form;
+        $data['show_item_about_us']     = $show_about_us;
+        $data['show_learn_more']        = $show_learn_more;
+        $data['show_upload']            = $show_upload;
+        $data['show_gifts']             = $show_gifts;
+
         $this->file_upload_demo();
 
-        $this->load->helper( array( 'form' ) );
+        $this->load->helper(array('form'));
 
 
         if ($page == '4') {

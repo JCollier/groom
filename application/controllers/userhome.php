@@ -53,6 +53,7 @@ class Userhome extends CI_Controller {
         $data['links_header']   = $this->_getAdminViewByType( 'links_header', $level );
         $data['users']          = $this->user->listUsersFromParams( 1, 5 );
         $data['bg_portrait']    = $data['base_url'] . 'htdocs/images_1/default/bg_img_4.jpg';
+        $data['icon_about_us']  = $data['base_url'] . 'htdocs/images_1/default/about_us.jpg';
         $data['template']       = $this->template->buildTemplateFromData($data, 'userhome');
 
         $this->load->view( 'userhome_view', $data );

@@ -100,6 +100,52 @@
                 </div>
             </div>
         </div>
+    <? elseif ($show_item_about_us): ?>
+        <div style="height:89%; width:80%; background-color:#d3d3d3; margin:0 0 0 10%;">
+            <div style="width:96%; height:89%; padding:2% 0 0 2%;">
+                Gfits aims to provide ipsum dolor sit amet, consectetur adipiscing elit.
+                Mauris finibus, massa non commodo commodo, enim risus tincidunt ligula, at
+                blandit orci risus vel quam. Mauris et arcu eu magna viverra scelerisque
+                eget non turpis. Donec sit amet nibh dui. Interdum et malesuada fames ac
+                ante ipsum primis in faucibus. Sed quis enim ut orci ultrices consequat
+                vel in nisi. Duis id fermentum elit, a vulputate leo. Donec vulputate
+                malesuada mauris a pharetra. Fusce at sem mattis, aliquet tortor sed,
+                iaculis tellus.
+
+                Sed varius, mauris sit amet pretium viverra, sem sapien tincidunt lectus,
+                at bibendum urna ligula a nisi. Sed massa arcu, lobortis cursus mi at,
+                dapibus semper libero. Cras sodales tempor justo, vel tempus felis
+                efficitur eget. Nulla scelerisque facilisis fermentum. Cras scelerisque
+                metus a enim fringilla consequat. Etiam tempor condimentum nulla, nec
+                tincidunt sem posuere in. Donec at varius nisl, sed euismod ipsum.
+                Aliquam id turpis at justo hendrerit rutrum a vitae justo. Vivamus
+                fermentum libero et lorem tristique, a rutrum mauris laoreet. Nunc
+                placerat enim vehicula, pharetra arcu ut, mollis ligula. Curabitur
+                pulvinar a sapien nec pulvinar. Pellentesque viverra aliquet metus
+                sodales luctus. Curabitur justo libero, tincidunt id porta suscipit,
+                tempor dapibus elit. Fusce vulputate sit amet quam eleifend mattis.
+                Aenean sapien turpis, condimentum dictum mauris non, volutpat imperdiet
+                turpis. Ut at libero quis tellus laoreet lacinia eget in enim.
+            </div>
+            <br><br>
+            <div>
+                <div id="register-block" style="display:none;">
+                    <?php echo validation_errors(); ?>
+                    <?php echo form_open('registeruserbasic'); ?>
+                    <label for="username">Username:</label>
+                    <input type="text" size="20" id="username" name="username"/>
+                    <br/>
+                    <label for="password">Password:</label>
+                    <input type="password" size="20" id="password" name="password"/>
+                    <br/>
+                    <label for="email">Email:</label>
+                    <input type="email" size="20" id="email" name="email"/>
+                    <br/>
+                    <input type="submit" value="Login"/>
+                    </form>
+                </div>
+            </div>
+        </div>
     <? elseif ($show_item_upload_block): ?>
         <div style="height:80%; width:80%; background-color:#d3d3d3;">get_item_upload_block</div>
     <? endif ?>
@@ -119,18 +165,20 @@
             </tr>
 
             <?php
-                foreach( $users as $user ) {
-                    //$row = "<tr><td>" . $user['username'] . "</td></tr>";
+                if (!empty($users)) {
+                    foreach($users as $user) {
+                        //$row = "<tr><td>" . $user['username'] . "</td></tr>";
 
-                    $row = "<tr>";
+                        $row = "<tr>";
 
-                    foreach( $columns as $column ) {
-                        $row .= "<td width='160px'>" . $user[$column] . "</td>";
+                        foreach( $columns as $column ) {
+                            $row .= "<td width='160px'>" . $user[$column] . "</td>";
+                        }
+
+                        $row .= "</tr>";
+
+                        echo( $row );
                     }
-
-                    $row .= "</tr>";
-
-                    echo( $row );
                 }
             ?>
         </table>
