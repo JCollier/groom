@@ -15,14 +15,10 @@ class Login extends CI_Controller {
     }
 
     function index() {
-        // $session_data = $this->session->userdata('logged_in');
-        // $data['username']   = $session_data['username'];
-        // $data['userid']     = $session_data['id'];
-
         $data['assets'] = $this->template->loadAssets(
              array(
-                array(  'css' => array( 'main', 'global' ) ),
-                array(  'jpg' => array( 'sprite_global' ) ),
+                array('css' => array('main', 'global')),
+                array('jpg' => array('sprite_global')),
             )
         );
 

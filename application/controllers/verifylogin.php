@@ -53,6 +53,7 @@ class VerifyLogin extends CI_Controller {
    else
    {
      $this->form_validation->set_message('check_database', 'Invalid username or password');
+     redirect('userhome', 'refresh');
      return false;
    }
  }

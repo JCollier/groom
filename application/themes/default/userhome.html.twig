@@ -2,6 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
+        <title>User Home Page</title>
+        <script src="{{ js_path['global'] }}"></script>
+        <script src="{{ js_path['jquery'] }}"></script>
         <script>
             function getUsers( p, n, s ) {
                 console.log( 'loaded!' );
@@ -37,13 +40,31 @@
 
             window.onload = getUsers( 4, 5, 'id' );
         </script>
-
         <script type="text/javascript">
             console.log( 'testJS!' );
+
+
+            function showRegister() {
+                document.getElementById('register-block').style.display="inline";
+                document.getElementById('login-block').style.display="none";
+            }
+
+            //alert('jdjdjdj');
+            $("#imgtag img").click(function(e) { // make sure the image is clicked
+                alert('jdjdjdj');
+                var imgtag = $(this).parent(); // get the div to append the tagging list
+                mouseX = ( e.pageX - $(imgtag).offset().left ) - 50; // x and y axis
+                mouseY = ( e.pageY - $(imgtag).offset().top ) - 50;
+                $( '#tagit' ).remove( ); // remove any tagit div first
+                //insert an input box with save and cancel operations.
+                $( imgtag ).append(
+                    '<div id="tagit"><div class="box"></div><div class="name"><div class="text">Type any name or tag</div><input type="text" name="txtname" id="tagname" /><input type="button" name="btnsave" value="Save" id="btnsave" /><input type="button" name="btncancel" value="Cancel" id="btncancel" /></div></div>'
+                    );
+                $( '#tagit' ).css({ top:mouseY, left:mouseX });
+
+                $('#tagname').focus();
+            });
         </script>
-        <title>User Home Page</title>
-        <script src="{{ js_path['global'] }}"></script>
-        <script src="{{ js_path['jquery'] }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ css_path['global'] }}">
         <link rel="stylesheet" type="text/css" href="{{ css_path['bootstrap'] }}">
         <link rel="stylesheet" type="text/css" href="{{ css_path['bootstrap_theme'] }}">
@@ -56,10 +77,9 @@
             overflow-y:hidden;
             position:relative;
             width:100%;
-            height:1700px;
-            background-color:#29aba4;"
+            height:1900px;
+            background: -webkit-gradient(linear, left top, left bottom, from(#29aba4), to(#3A62B8), color-stop(1.5, #29aba4));"
         class="
-            bg-color-gray
             width-full
             pos-float-left"
     >
@@ -76,18 +96,18 @@
             <div style="height:100%;">
                 <div style="height:100%;">
                     <div style="width:100%; height:100%; text-align:center; background-color: rgba(211, 213, 212, 0.1);
-                    border-bottom: 1px solid #d3d5d4;
+                    border-bottom: 1px solid rgba(211,213,212,0.1);
                     border-top: 1px solid #d3d5d4;">
                         <div style="width:100%; height:100%; ">
                             <div style="width:100%; height:100%;">
                                 <div style="width:35%; height:100%; float:left"></div>
                                 <div style="width:30%; height:100%; float:left; text-align:center; margin-left:auto; margin-right:auto;">
                                     <div style="width:100%; height:20%;"></div>
-                                    <div style="width:30%; padding-bottom:30%; height:0; border:4px solid white; border-radius:100%; float:left; text-align:center; margin-left:auto; margin-right:auto;">
+                                    <div style="width:30%; padding-bottom:30%; height:0; background-color:rgba(211,211,211,0.3); border:4px solid white; border-radius:100%; float:left; text-align:center; margin:5% auto 0 auto;">
                                     </div>
-                                    <div style="max-height:200px; width:40%; padding-bottom:40%; height:0; border:4px solid white; border-radius:100%; float:left; text-align:center; margin-left:auto; margin-right:auto;">
+                                    <div style="max-height:200px; width:40%; padding-bottom:40%; height:0; background-color:rgba(211,211,211,0.7); border:4px solid white; border-radius:100%; float:left; text-align:center; margin-left:auto; margin-right:auto;">
                                     </div>
-                                    <div style="width:30%; padding-bottom:30%; height:0; border:4px solid white; border-radius:100%; float:left; text-align:center; margin-left:auto; margin-right:auto;">
+                                    <div style="width:30%; padding-bottom:30%; height:0; border:4px solid white; background-color:rgba(211,211,211,0.3); border-radius:100%; float:left; text-align:center; margin:5% auto 0 auto;">
                                     </div>
                                 </div>
                                 <div style="width:35%; height:100%; float:left"></div>
@@ -150,40 +170,37 @@
         </div>
 
 
-        <div id="userhome-nav-container" style="height:22%; width:100%;">
+        <div id="userhome-nav-container" style="height:22%; width:100%; min-height:360px;">
             <div style="width:100%; height:100%;">
-                <div style="width:10%; height:100%; float:left; border-left:1px solid black; border-right:1px solid black;">
-                    10
-                </div>
-                <div style="width:80%; height:100%; float:left; z-index:1000; background-color:rgba(249,251,244,0.9);">
-                    <div style="width:100%; height:100%; padding-top:6%;">
-                        <div id="userhome-nav-block" style="height:200px; width:100%;">
-                            <a style="background-size:100% 100%; background-image:url(http://192.168.220.159/groom/htdocs/images_1/default/learn_more.jpg);"
+                <div style="width:100%; height:100%; float:left; z-index:1000;">
+                    <div style="width:100%; height:100%; padding-top:2%; padding-left:12%;">
+                        <div id="userhome-nav-block" style="height:200px; width:100%; margin:0 7% 0 7%;">
+                            <a style="background-size:100% 100%; background-image:url(htdocs/images_1/default/learn_more.jpg);"
                                 class="user-nav-home-button user-nav-button-left"
                                 onclick="console.log('i3uhff'); getUsers(1, 5, 'id' );">
                                 <div style="height:100%; width:100%; padding:60% 0 0 0;">
-                                    <div style="width:100%; background-color:rgba(41,171,164,0.2); text-align:center;">LEARN MORE</div>
+                                    <div style="width:100%; background-color:rgba(255,255,255,0.3); text-align:center;">LEARN MORE</div>
                                 </div>
                             </a>
-                            <a style="background-size:100% 100%; background-image:url(http://192.168.220.159/groom/htdocs/images_1/default/about_us.jpg);"
+                            <a style="background-size:100% 100%; background-image:url(htdocs/images_1/default/about_us.jpg);"
                                 class="user-nav-home-button user-nav-button-left"
                                 onclick="console.log('i3uhff'); getUsers(2, 5, 'id' );">
                                 <div style="height:100%; width:100%; padding:60% 0 0 0;">
-                                    <div style="width:100%; background-color:rgba(41,171,164,0.2); text-align:center;">ABOUT US</div>
+                                    <div style="width:100%; background-color:rgba(255,255,255,0.3); text-align:center;">ABOUT US</div>
                                 </div>
                             </a>
-                            <a style="background-size:100% 100%; background-image:url(http://192.168.220.159/groom/htdocs/images_1/default/your_items.jpg);"
+                            <a style="background-size:100% 100%; background-image:url(htdocs/images_1/default/your_items.jpg);"
                                 class="user-nav-home-button user-nav-button-left"
                                 onclick="console.log('i3uhff'); getUsers(3, 5, 'id' );">
                                 <div style="height:100%; width:100%; padding:60% 0 0 0;">
-                                    <div style="width:100%; background-color:rgba(41,171,164,0.2); text-align:center;">YOUR ITEMS</div>
+                                    <div style="width:100%; background-color:rgba(255,255,255,0.3); text-align:center;">YOUR ITEMS</div>
                                 </div>
                             </a>
-                            <a style="background-size:100% 100%; background-image:url(http://192.168.220.159/groom/htdocs/images_1/default/get_started.jpg);"
+                            <a style="background-size:100% 100%; background-image:url(htdocs/images_1/default/get_started.jpg);"
                                 class="user-nav-home-button user-nav-button-left"
                                 onclick="console.log('i3uhff'); getUsers(4, 5, 'id' );">
                                 <div style="height:100%; width:100%; padding:60% 0 0 0;">
-                                    <div style="width:100%; background-color:rgba(41,171,164,0.2); text-align:center;">GET STARTED</div>
+                                    <div style="width:100%; background-color:rgba(255,255,255,0.3); text-align:center;">GET STARTED</div>
                                 </div>
                             </a>
                         </div>
@@ -195,54 +212,6 @@
                         </div>
                     </div>
                 </div>
-                <div style="width:10%; height:100%; float:left; border-left:1px solid black; border-right:1px solid black;">10</div>
-            </div>
-        </div>
-
-        <div style="height:32%; width:100%; background-color:#29aba4;">
-            <div style="width:100%; height:80%;">
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-                <div style="width:80%; height:4%; float:left; border-right:1px solid black;">
-                    <div style="width:100%; height:100%; padding-left:6%; padding-right:6%;">
-                        <div style="width:100%; height:100%; text-align:center; background-color:#000000; display:none;">
-                            <div style="height:100%; text-align:center; padding-top:2%; padding-bottom:2%">
-                                {% for info in display_params.infos %}
-                                    <div style="min-width:120px; max-height:320px; {% if not loop.last %}margin-right:2%; {% endif %}width:22%; height:100%; border:1px solid white; display:inline-block;">
-                                        <div style="opacity:0.8; background-color:#000011; width:100%; height:20%; float:left;">{{ info.title }}</div>
-                                        <div style="opacity:0.8; background-color:#000011; width:100%; height:60%; float:left;">{{ info.description }}</div>
-                                        <div style="opacity:0.8; background-color:#000011; width:100%; height:20%; float:left;">{{ info.img_src }}</div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-            </div>
-        </div>
-
-        <div style="height:18%; width:100%; background-color:#29aba4;">
-            <div style="width:100%; height:100%;">
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-                <div style="width:80%; height:100%; float:left; border-right:1px solid black;">
-                    <div style="width:100%; height:100%; padding:20px;">
-                        <div style="width:100%; height:100%;"></div>
-                    </div>
-                </div>
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-            </div>
-        </div>
-    </div>
-    <div id="container-home" style="overflow-x:hidden; overflow-y:hidden;float:left; width:100%; height:1700px; background-color:#29aba4;" class="bg-color-gray width-full pos-float-left">
-        <div style="height:100%; width:100%; background-color:#29aba4;">
-            <div style="width:100%; height:100%;">
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
-                <div style="width:80%; height:100%; float:left; border-right:1px solid black;">
-                    <div style="width:100%; height:100%; padding:20px;">
-                        <div style="width:100%; height:100%; background-color:#000000; display:none;"></div>
-                    </div>
-                </div>
-                <div style="width:10%; height:100%; float:left; border-right:1px solid black;">10</div>
             </div>
         </div>
     </div>

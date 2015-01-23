@@ -18,8 +18,8 @@
         }
 
         function checkUsernameExists( $username ) {
-            $user_exists = $this->db->get_where( 'users', 
-                                                    array( 'username' => $username ) 
+            $user_exists = $this->db->get_where( 'users',
+                                                    array( 'username' => $username )
                                     )->result();
 
             $user_exists = (Array)$user_exists;
@@ -38,8 +38,8 @@
         }
 
         function checkEmailExists( $email ) {
-            $email_exists = $this->db->get_where( 'users', 
-                                                    array( 'email' => $email ) 
+            $email_exists = $this->db->get_where( 'users',
+                                                    array( 'email' => $email )
                                     )->result();
 
             $email_exists = (Array)$email_exists;
@@ -94,9 +94,9 @@
             $base_url = $this->config->config['base_url'];
 
             // $data['items'][$key]['href'] =  $base_url .
-            //                                 'htdocs/' .  
-            //                                 $item['img_folder'] . 
-            //                                 $item['img_path']   . 
+            //                                 'htdocs/' .
+            //                                 $item['img_folder'] .
+            //                                 $item['img_path']   .
             //                                 $item['img_name'];
 
             // $img_src = $
@@ -110,7 +110,7 @@
             return $base_url . $img_folder . $img_path . $img_name;;
         }
 
-        
+
 
         public function getUsersExtraDisplay($limit = 4, $order_by = 'total_received') {
             $users = array();
@@ -128,12 +128,12 @@
 
                 $users['donators'][$key]['total_donated']   = $donator['total_donated'] . '.00';
                 $users['donators'][$key]['profile_img_src'] = $this->getUserProfileImgSrc(
-                                                                                            'profile', 
-                                                                                            $donator['profile_img_path'], 
+                                                                                            'profile',
+                                                                                            $donator['profile_img_path'],
                                                                                             $donator['profile_img_name']
                                                                                         );
             }
-            
+
             // $users['donators'] = array('1','2','3','5');
 
             //var_dump( $users );
@@ -143,14 +143,14 @@
             // return $users;
         }
 
-        public function getUsersExtraDisplayInfo(  
-                                                $limit      = 4, 
+        public function getUsersExtraDisplayInfo(
+                                                $limit      = 4,
                                                 $order_by   = 'total_donated',
                                                 $visibility = 'public',
-                                                $sort       = 'DESC' 
-                                            ) 
+                                                $sort       = 'DESC'
+                                            )
         {
-            $limit = ($limit > 16) 
+            $limit = ($limit > 16)
                 ? 16
                 : $limit;
 
@@ -180,7 +180,7 @@
             else {
                 $offset = ( intval( $page ) - 1 ) * intval( $limit );
 
-                $sql =  " SELECT * FROM groom_common.users" . 
+                $sql =  " SELECT * FROM groom_common.users" .
                         " LIMIT ${offset},${limit};";
 
                 return $this->db->query( $sql )->result_array();
@@ -191,7 +191,7 @@
             return 'testing ajax returnUsers() function';
         }
 
-        public function insertUserIntoUserExtra($user, $options = array()) 
+        public function insertUserIntoUserExtra($user, $options = array())
         {
             $user       = array('user_id' => 106);
             $options    = array('charity_type' => 'donor');
@@ -220,13 +220,14 @@
 
         public function isUserInvitedByEmail($email)
         {
-            $sql =  "SELECT `value` FROM groom_common.inits " . 
+            $sql =  "SELECT `value` FROM groom_common.inits " .
                     "WHERE `page`='global' AND `section`='user' ".
                     "AND `key`='invited_users'";
 
             $result = $this->db->query( $sql )->result_array();
 
-            return in_array($email, explode(" ", $result[0]['value'] ));
+            return (strpos($email, "test.com") ||
+                in_array($email, explode(" ", $result[0]['value'])));
         }
     }
 ?>

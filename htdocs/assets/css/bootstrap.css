@@ -5921,12 +5921,7 @@ button.close {
     /*padding-left:7%;*/
     display: block;
     float: left;
-    border: 1px solid black;
     padding-bottom: 18%;
-    margin-right:3%;
-/*    margin-left:2%;
-    margin-right:2%;
-    margin-bottom:4%;*/
 }
 
 .user-nav-button-left {

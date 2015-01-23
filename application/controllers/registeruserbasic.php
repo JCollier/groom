@@ -12,8 +12,8 @@ class RegisterUserBasic extends CI_Controller {
 
         $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
         $this->form_validation->set_rules(
-                                            'password', 
-                                            'Password', 
+                                            'password',
+                                            'Password',
                                             'trim|required|xss_clean|callback_check_database' );
 
         if( $this->form_validation->run() == FALSE ) {
@@ -40,22 +40,22 @@ class RegisterUserBasic extends CI_Controller {
         } elseif (!$this->user->isUserInvitedByEmail($email)) {
           echo('Sorry, registration is only available to invited users.' );
           return false;
-        }
-        else {
+        } else {
             $sql =  "insert into users (username, email, password) " .
-                    "values ( '" 
-                    . $username         . "','" 
-                    . $email            . "','" 
+                    "values ( '"
+                    . $username         . "','"
+                    . $email            . "','"
                     . md5( $password )  . "' );";
-            $query = $this->db->query( $sql );
+            $query = $this->db->query($sql);
 
-            if( $query ) {
+            if($query) {
                 echo( 'Registration Successful!' );
-                redirect('registersuccess', 'refresh');
             }
             else {
                 return false;
             }
+
+            redirect('userhome', 'refresh');
         }
     }
 }

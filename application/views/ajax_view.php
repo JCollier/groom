@@ -36,72 +36,117 @@
 <!-- get_item_upload_block -->
 <? if ($method == 'get_item_upload_block'): ?>
     <? if ($show_login_form): ?>
-        <div style="height:89%; width:80%; background-color:#d3d3d3; margin:0 0 0 10%;">
-            <div style="width:30%; height:89%;">
-                Login
-                <?php echo validation_errors(); ?>
-                <?php echo form_open('verifylogin'); ?>
-                    <div style="width:100%;">
-                        <div style="width:100%; clear:left;">
-                            <div style="width:34%; float: left;">
-                                <label for="username" style="margin:2% 0 0 2%;">Username:</label>
-                            </div>
-                            <div style="width:66%; float:right;">
-                                <input type="username" size="20" id="username" name="username" style="float:right; width:100%;"/>
-                            </div>
-                        </div>
 
-                        <div style="width:100%; clear:left; padding:4% 0 4% 0;">
-                            <div style="width:34%; float: left;">
-                                <label for="password" style="margin:2% 0 0 2%;">Password:</label>
+        <div style="height:89%; width:100%; margin:0 0 0 0;">
+            <div style="width:42%; height:100%; margin:0 2% 0% 6%; float:left;">
+                <div id="login-block" style="width:77%; height:54%; float:right;">
+                    <?php echo validation_errors(); ?>
+                    <?php echo form_open('verifylogin'); ?>
+                        <div style="width:100%;">
+                            <div style="width:100%; clear:left; padding:4% 0 4% 0;">
+                                <div style="width:28%; float: left;">
+                                    <label for="username" style="margin:2% 0 0 2%;">Username:</label>
+                                </div>
+                                <div style="width:72%; float:right;">
+                                    <input type="username" size="20" id="username" name="username" style="float:right; width:100%;"/>
+                                </div>
                             </div>
-                            <div style="width:66%; float:right;">
-                                <input type="password" size="20" id="password" name="password" style="float:right; width:100%;"/>
-                            </div>
-                        </div>
 
-                        <div style="width:100%; clear:left; padding:4% 0 4% 0;">
-                            <div style="width:100%; max-height:34px; float:left;">
-                                <div style="height:100%; min-height:20px; width:40%; float:left;"></div>
-                                <div style="width:60%; float:right; padding:1% 0 0 0;">
-                                    <div style="padding:0 0 0 2px; width:8%; float:left">
-                                        <input type="checkbox" value="forever" id="rememberme" name="checkbox" style="float:right;"/>
-                                    </div>
-                                    <div style="padding:0 0 0 2px; width:92%; text-align:right; float:right;">
-                                        Remember me <input type="submit" value="Login" style="float:right;"/>
+                            <div style="width:100%; clear:left; padding:4% 0 4% 0;">
+                                <div style="width:28%; float: left;">
+                                    <label for="password" style="margin:2% 0 0 2%;">Password:</label>
+                                </div>
+                                <div style="width:72%; float:right;">
+                                    <input type="password" size="20" id="password" name="password" style="float:right; width:100%;"/>
+                                </div>
+                            </div>
+
+                            <div style="width:100%; clear:left; padding:4% 0 4% 0;">
+                                <div style="width:100%; max-height:34px; float:left;">
+                                    <div style="height:100%; min-height:20px; width:40%; float:left;"></div>
+                                    <div style="width:60%; float:right; padding:1% 0 0 0;">
+                                        <div style="padding:0 0 0 2px; width:8%; float:left">
+                                            <input type="checkbox" value="forever" id="rememberme" name="checkbox" style="float:right;"/>
+                                        </div>
+                                        <div style="padding:0 0 0 2px; width:92%; text-align:right; float:right; min-height:300px;">
+                                            <input class="btn btn-block" type="submit" value="Login" style="width:23%; height:100%; float:right;"/>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div style="width:100%; float:left; text-align:right;">
-                                Forgot Password?
-                                <a href="">Click here to reset password</a>
-                            </div>
-                            <div style="width:100%; float:left; display:none;">New User?</div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <br><br>
-            <div>
-                <div id="register-block" style="display:none;">
-                    <?php echo validation_errors(); ?>
-                    <?php echo form_open('registeruserbasic'); ?>
-                    <label for="username">Username:</label>
-                    <input type="text" size="20" id="username" name="username"/>
-                    <br/>
-                    <label for="password">Password:</label>
-                    <input type="password" size="20" id="password" name="password"/>
-                    <br/>
-                    <label for="email">Email:</label>
-                    <input type="email" size="20" id="email" name="email"/>
-                    <br/>
-                    <input type="submit" value="Login"/>
                     </form>
                 </div>
+
+                <div style="width:77%; float:right;">
+                    <div id="register-block" style="display:none;  height:43%; ">
+                        <?php echo validation_errors(); ?>
+                        <?php echo form_open('registeruserbasic'); ?>
+                            <div style="width:100%; clear:left; padding:4% 0 4% 0;">
+                                <div style="width:100%; clear:left;">
+                                    <div style="width:28%; float: left;">
+                                        <label for="username" style="margin:2% 0 0 2%;">Username:</label>
+                                    </div>
+                                    <div style="width:72%; float:right;">
+                                        <input type="username" size="20" id="username" name="username" style="float:right; width:100%;"/>
+                                    </div>
+                                </div>
+
+                                <div style="width:100%; clear:left; padding:4% 0 4% 0;">
+                                    <div style="width:28%; float: left;">
+                                        <label for="password" style="margin:2% 0 0 2%;">Password:</label>
+                                    </div>
+                                    <div style="width:72%; float:right;">
+                                        <input type="password" size="20" id="password" name="password" style="float:right; width:100%;"/>
+                                    </div>
+                                </div>
+
+                                <div style="width:100%; clear:left; padding:4% 0 4% 0;">
+                                    <div style="width:28%; float: left;">
+                                        <label for="username" style="margin:2% 0 0 2%;">Email:</label>
+                                    </div>
+                                    <div style="width:72%; float:right;">
+                                        <input type="email" size="20" id="email" name="email" style="float:right; width:100%;"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="width:100%; clear:left; padding:4% 0 4% 0;">
+                                <div style="width:100%; max-height:34px; float:left;">
+                                    <div style="height:100%; min-height:20px; width:40%; float:left;"></div>
+                                    <div style="width:60%; float:right; padding:1% 0 0 0;">
+                                        <div style="padding:0 0 0 2px; width:8%; float:left">
+                                        </div>
+                                        <div style="padding:0 0 0 2px; width:92%; text-align:right; float:right;">
+                                                <input type="submit" value="Login" style="float:right;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div style="width:77%; height:39%; float:right; clear:left;">
+                    <div style="width:100%; float:left; text-align:right;">
+                        Forgot Password?
+                        <a href="javascript:void(0);">Click here to reset password</a>
+                    </div>
+                    <div style="width:100%; float:left; text-align:right;">
+                        New User?
+                        <a href="javascript:void(0);" onclick="showRegister();">Click here to Register</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width:46%; height:100%; margin:0 2% 0% 2%; float:left;">
+                <div style="width:100%; clear:left; padding:4% 0 4% 0;">kdkdk</div>
             </div>
         </div>
+
     <? elseif ($show_item_about_us): ?>
-        <div style="height:89%; width:80%; background-color:#d3d3d3; margin:0 0 0 10%;">
+        <div style="height:89%; width:80%; background-color:rgba(211,211,211,0.7); margin:0 0 0 10%;">
             <div style="width:96%; height:89%; padding:2% 0 0 2%;">
                 Gfits aims to provide ipsum dolor sit amet, consectetur adipiscing elit.
                 Mauris finibus, massa non commodo commodo, enim risus tincidunt ligula, at
@@ -127,28 +172,36 @@
                 Aenean sapien turpis, condimentum dictum mauris non, volutpat imperdiet
                 turpis. Ut at libero quis tellus laoreet lacinia eget in enim.
             </div>
-            <br><br>
-            <div>
-                <div id="register-block" style="display:none;">
-                    <?php echo validation_errors(); ?>
-                    <?php echo form_open('registeruserbasic'); ?>
-                    <label for="username">Username:</label>
-                    <input type="text" size="20" id="username" name="username"/>
-                    <br/>
-                    <label for="password">Password:</label>
-                    <input type="password" size="20" id="password" name="password"/>
-                    <br/>
-                    <label for="email">Email:</label>
-                    <input type="email" size="20" id="email" name="email"/>
-                    <br/>
-                    <input type="submit" value="Login"/>
-                    </form>
+        </div>
+    <? elseif ($show_item_upload_block): ?>
+        <div style="height:80%; width:80%; background-color:rgba(211,211,211,0.7);">get_item_upload_block</div>
+    <? endif ?>
+
+    <? if ($show_login_form || (1==1)): ?>
+        <div style="height:400%; width:100%; margin:0 0 0 0; border:1px solid black;">
+            kdkdkdkd
+
+            <div id="container">
+                <div id="imgtag">
+                <?php
+                    $sql    = "SELECT * FROM items WHERE id=9";
+                    $qry    = mysql_query( $sql );
+                    $rs     = mysql_fetch_array( $qry );
+
+                    $file = 'htdocs/' . $rs[13] . $rs[11] . $rs[12];
+                ?>
+                <a href="javascript:void(0);" onclick="showTagger();" id="imgtag_2">jdjdjd</a>
+                <img id="<?php echo $rs['id']; ?>" src="<?php echo $file;?>" style="max-width:1000px; width:100%; height:auto;"/>
+                <div id="tagbox"></div>
+                </div>
+                <div id="taglist">
+                    <ol></ol>
                 </div>
             </div>
         </div>
-    <? elseif ($show_item_upload_block): ?>
-        <div style="height:80%; width:80%; background-color:#d3d3d3;">get_item_upload_block</div>
+
     <? endif ?>
+
     <div>
         Users:
         <table>
