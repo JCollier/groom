@@ -35,7 +35,9 @@
                 xmlhttp.send();
 
                 //document.getElementById('userhome-nav-container').scrollIntoView();
-                $('html, body').animate({scrollTop:$('#userhome-nav-container').position().top}, 'slow');
+                // if ($('#userhome-nav-container')) {
+                //     $('html, body').animate({scrollTop:$('#userhome-nav-container').position().top}, 'slow');
+                // }
             }
 
             window.onload = getUsers( 4, 5, 'id' );
@@ -43,27 +45,156 @@
         <script type="text/javascript">
             console.log( 'testJS!' );
 
-
             function showRegister() {
                 document.getElementById('register-block').style.display="inline";
                 document.getElementById('login-block').style.display="none";
             }
 
-            //alert('jdjdjdj');
-            $("#imgtag img").click(function(e) { // make sure the image is clicked
-                alert('jdjdjdj');
-                var imgtag = $(this).parent(); // get the div to append the tagging list
-                mouseX = ( e.pageX - $(imgtag).offset().left ) - 50; // x and y axis
-                mouseY = ( e.pageY - $(imgtag).offset().top ) - 50;
-                $( '#tagit' ).remove( ); // remove any tagit div first
-                //insert an input box with save and cancel operations.
-                $( imgtag ).append(
-                    '<div id="tagit"><div class="box"></div><div class="name"><div class="text">Type any name or tag</div><input type="text" name="txtname" id="tagname" /><input type="button" name="btnsave" value="Save" id="btnsave" /><input type="button" name="btncancel" value="Cancel" id="btncancel" /></div></div>'
-                    );
-                $( '#tagit' ).css({ top:mouseY, left:mouseX });
+            alert('a');
 
-                $('#tagname').focus();
+                $("div").hover(function(){
+                    alert('hdhhdd');
+                });
+
+            $(document).ready(function(){
+                alert('b');
             });
+
+            $(document).ready(function(){
+                var counter = 0;
+                var mouseX = 0;
+                var mouseY = 0;
+                var imgid = 0;
+                var str = '';
+
+                $(document).ready(function(e) { // make sure the image is click
+                    alert('test!');
+
+                    //var imgtag = $(this).parent(); // get the div to append the tagging list
+
+                    //var imgtag = $("#imgtag img");
+
+                    var imgtag = document.getElementById("imgtag");
+
+                    //imgid = $(this).attr( "id" ); if you need to fetch tags by specific images
+
+                    console.log(imgtag);
+
+                    console.log(imgtag.offset());
+
+                    mouseX = ( e.pageX - $(imgtag).offset().left ) - 50; // x and y axis
+                    mouseY = ( e.pageY - $(imgtag).offset().top ) - 50;
+                    $( '#tagit' ).remove( ); // remove any tagit div first
+                    $( imgtag ).append( '<div id="tagit"><div class="box"></div><div class="name"><div class="text">Type any name or tag</div><input type="text" name="txtname" class="search" id="tagname" /><div id="result"></div><input type="button" name="btnsave" value="Save" id="btnsave" /><input type="button" name="btncancel" value="Cancel" id="btncancel" /></div></div>' );
+                    $( '#tagit' ).css({ top:mouseY, left:mouseX });
+
+                    $('#tagname').focus();
+                });
+
+                // autocomplete
+                // check for input and send an ajax request with the characters typed.
+
+                // $( "#container" ).on( 'keyup', '#tagname', function() {
+                //     str = $(this).val();
+                //     if( str != '' ) {
+                //     $.post( "ajax.php", "search=" + str + "&action=search", function( data ) {
+                //     $( "#result" ).html( data ).show(); //show the query results in div.
+                //     });
+                //     }
+                // });
+
+                // // hide the result div when clicked away from the input.
+                // $( document ).click( function( e ) {
+                //     var $clicked = $( e.target );
+                //     if (! $clicked.hasClass("search") ) {
+                //     $( '#result' ).fadeOut();
+                //     }
+                // });
+
+                // // show the result div when clicked on the input.
+                // $( '#container' ).on( 'click', '#tagname', function() {
+                //     if( $.trim( $("#result").text() ) != '' ) {
+                //     $( '#result' ).fadeIn();
+                //     }
+                // });
+
+                // // fill the input with the value selected from the auto search result.
+                // $( "#container" ).on( 'click', '.ntag', function(e) {
+                //     var txt = $(this).text();
+                //     $( '#tagname' ).val( txt );
+                // });
+
+                // // Save button click - save tags
+                // $( document ).on( 'click',  '#tagit #btnsave', function(){
+                //     name = $('#tagname').val();
+                //     var img = $('#imgtag').find( 'img' );
+                //     var id = $( img ).attr( 'id' );
+                //     $.ajax({
+                //     type: "POST",
+                //     url: "ajax.php",
+                //     data: "pic_id=" + id + "&name=" + name + "&pic_x=" + mouseX + "&pic_y=" + mouseY + "&action=insert",
+                //     cache: true,
+                //     success: function(data) {
+                //     viewtag( id );
+                //     $('#tagit').fadeOut();
+                //     }
+                //     });
+                // });
+
+                // // Cancel the tag box.
+                // $( document ).on( 'click', '#tagit #btncancel', function() {
+                //     $('#tagit').fadeOut();
+                // });
+
+                // // mouseover the taglist
+                // $('#taglist').on( 'mouseover', 'li', function( ) {
+                //     id = $(this).attr("id");
+                //     $('#view_' + id).css({ opacity: 1.0 });
+                //     }).on( 'mouseout', 'li', function( ) {
+                //     $('#view_' + id).css({ opacity: 0.0 });
+                // });
+
+                // // mouseover the tagboxes that is already there but opacity is 0.
+                // $( '#tagbox' ).on( 'mouseover', '.tagview', function( ) {
+                //     var pos = $( this ).position();
+                //     $(this).css({ opacity: 1.0 }); // div appears when opacity is set to 1.
+                // }).on( 'mouseout', '.tagview', function( ) {
+                //     $(this).css({ opacity: 0.0 }); // hide the div by setting opacity to 0.
+                // });
+
+                // // Remove tags.
+                // $( '#taglist' ).on('click', '.remove', function() {
+                //     id = $(this).parent().attr("id");
+                //     // Remove the tag
+                //     $.ajax({
+                //     type: "POST",
+                //     url: "ajax.php",
+                //     data: "tag_id=" + id + "&action=delete",
+                //     success: function(data) {
+                //     var img = $('#imgtag').find( 'img' );
+                //     var id = $( img ).attr( 'id' );
+                //     //get tags if present
+                //     viewtag( id );
+                //     }
+                //     });
+                // });
+
+                // // load the tags for the image when page loads.
+                // var img = $('#imgtag').find( 'img' );
+                // var id = $( img ).attr( 'id' );
+
+                // viewtag( id ); // view all tags available on page load
+
+                // function viewtag( pic_id )
+                // {
+                //     // get the tag list with action remove and tag boxes and place it on the image.
+                //     $.post( "ajax.php" ,  "pic_id=" + pic_id + "&action=view", function( data ) {
+                //         $('#taglist ol').html(data.lists);
+                //         $('#tagbox').html(data.boxes);
+                //     }, "json");
+                // }
+            });
+
         </script>
         <link rel="stylesheet" type="text/css" href="{{ css_path['global'] }}">
         <link rel="stylesheet" type="text/css" href="{{ css_path['bootstrap'] }}">

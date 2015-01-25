@@ -32,11 +32,8 @@
     </table>
 </div>
 <? endif; ?>
-
-<!-- get_item_upload_block -->
-<? if ($method == 'get_item_upload_block'): ?>
+<? if ($method == 'get_item_upload_block' || $method == 'savetag' || $method == 'taglist' || (1==1)): ?>
     <? if ($show_login_form): ?>
-
         <div style="height:89%; width:100%; margin:0 0 0 0;">
             <div style="width:42%; height:100%; margin:0 2% 0% 6%; float:left;">
                 <div id="login-block" style="width:77%; height:54%; float:right;">
@@ -177,63 +174,173 @@
         <div style="height:80%; width:80%; background-color:rgba(211,211,211,0.7);">get_item_upload_block</div>
     <? endif ?>
 
-    <? if ($show_login_form || (1==1)): ?>
-        <div style="height:400%; width:100%; margin:0 0 0 0; border:1px solid black;">
-            kdkdkdkd
+    <? if ($show_savetag): ?>
+        <?php
+            if( !empty( $_POST['type'] ) && $_POST['type'] == "insert" || 1==1) {
 
-            <div id="container">
-                <div id="imgtag">
-                <?php
-                    $sql    = "SELECT * FROM items WHERE id=9";
-                    $qry    = mysql_query( $sql );
-                    $rs     = mysql_fetch_array( $qry );
+                $_POST = $_GET;
 
-                    $file = 'htdocs/' . $rs[13] . $rs[11] . $rs[12];
-                ?>
-                <a href="javascript:void(0);" onclick="showTagger();" id="imgtag_2">jdjdjd</a>
-                <img id="<?php echo $rs['id']; ?>" src="<?php echo $file;?>" style="max-width:1000px; width:100%; height:auto;"/>
-                <div id="tagbox"></div>
-                </div>
-                <div id="taglist">
-                    <ol></ol>
-                </div>
+                $_POST['pic_id']    = 5;
+                $_POST['type']      = 'insert';
+                $_POST['title']     = 'n/a';
+
+                $id     = $_POST['pic_id'];
+                $title  = $_POST['title'];
+                $pic_x  = $_POST['pic_x'];
+                $pic_y  = $_POST['pic_y'];
+
+                $sql =
+                    "INSERT INTO item_tag (pic_id,title,pic_x,pic_y) VALUES ($id, '$title', $pic_x, $pic_y)" .
+                    "ON DUPLICATE KEY UPDATE `pic_x`={$pic_x},`pic_y`={$pic_y};";
+                echo($sql);
+
+                $qry = mysql_query($sql);
+            }
+        ?>
+    <? elseif ($show_taglist): ?>
+        <?php
+            $sql    = "SELECT * FROM item_tag WHERE pic_id=5";
+            $qry    = mysql_query( $sql );
+            $rs     = mysql_fetch_array( $qry );
+
+            //$file = 'http://192.168.220.160/groom/htdocs/' . $rs[13] . $rs[11] . $rs[12];
+
+            $data['boxes'] = '';
+            $data['lists'] = '';
+
+            if ($rs){
+                do {
+                    $data['boxes'] .= '<div class="tagview" style="position:relative; width:200px; height:200px; border:4px solid black; left:' . $rs['pic_x'] . 'px;top:' . $rs['pic_y'] . 'px;" id="view_'.$rs['pic_id'].'">';
+                    $data['boxes'] .= '<div class="square"></div>';
+                    $data['boxes'] .= '<div class="person" style="left:' . $rs['pic_x'] . 'px;top:' . $rs['pic_y']  . 'px;">' . $rs[ 'title' ] . '</div>';
+                    $data['boxes'] .= '</div>';
+
+                    $data['lists'] .= '<li id="'.$rs['pic_id'].'"><a>' . $rs['title'] . '</a> (<a class="remove">Remove</a>)</li>';
+
+                } while($rs = mysql_fetch_array($qry));
+            }
+
+            echo json_encode($data);
+        ?>
+    <? elseif ($show_login_form || (1==1)): ?>
+        <script src="http://192.168.220.160/groom/htdocs/assets/js/jquery.min.js"></script>
+        <script type="text/javascript">
+            function viewtag( pic_id ) {
+                  // get the tag list with action remove and tag boxes and place it on the image.
+                  // $.post( "get_item_upload_block" ,  "?taglist&pic_id=" + pic_id, function( data ) {
+                  //   $('#taglist ol').html(data.lists);
+                  //    $('#tagbox').html(data.boxes);
+                  // }, "json");
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://192.168.220.160/groom/ajax/get_item_upload_block?p=4&n=5&s=id&m=taglist&pic_id=100",
+                    // data: "pic_id=" + id + "&name=" + name + "&pic_x=" + mouseX + "&pic_y=" + mouseY + "&type=insert",
+                    cache: false,
+                    success: function(data){
+                        data = JSON.parse(data);
+
+
+                        $('#taglist ol').html(data.lists);
+                        $('#tagbox').html(data.boxes);
+
+                        console.log(data.lists);
+
+                        console.log(document.getElementById( "taglist" ));
+
+                        alert('done!');
+
+                        return data;
+                    }
+                });
+            }
+
+            $(document).ready(function(){
+                var counter = 0;
+                var mouseX = 0;
+                var mouseY = 0;
+                var imgid = 0;
+                var str = '';
+
+                $("#imgtag img").click(function(e) { // make sure the image is click
+                    var imgtag = $(this).parent(); // get the div to append the tagging list
+
+                    //imgid = $(this).attr( "id" ); if you need to fetch tags by specific images
+
+                    mouseX = ( e.pageX - $(imgtag).offset().left ) - 50; // x and y axis
+                    mouseY = ( e.pageY - $(imgtag).offset().top ) - 50;
+
+                    var height = $("#imgtag").height();
+                    var width = $("#imgtag").width();
+
+                    console.log(width);
+                    console.log(height);
+
+                    $( '#tagit' ).remove( ); // remove any tagit div first
+                    $( imgtag ).append( '<div id="tagit"><div class="box"></div><div class="name"><div class="text">Type any name or tag</div><input type="text" name="txtname" class="search" id="tagname" /><div id="result"></div><input type="button" name="btnsave" value="Save" id="btnsave" /><input type="button" name="btncancel" value="Cancel" id="btncancel" /></div></div>' );
+                    $( '#tagit' ).css({ top:mouseY, left:mouseX });
+
+                    $('#tagname').focus();
+                });
+
+                $(document).ready(function(){
+                    viewtag( 5 );
+                });
+
+                $( document ).on( 'click',  '#tagit #btnsave', function(){
+                    name = $('#tagname').val();
+
+                    console.log(name);
+
+                    var img = $('#imgtag').find( 'img' );
+                    var id = $( img ).attr( 'id' );
+
+                    console.log(mouseX);
+                    console.log(mouseY);
+
+                    alert('savetag!');
+
+                    var url = "http://192.168.220.160/groom/ajax/get_item_upload_block?p=4&n=5&s=id&m=savetag&type=insert";
+                        url += '&title=' + 'title'
+                        url += '&pic_x=' + mouseX;
+                        url += '&pic_y=' + mouseY;
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        // data: "pic_id=" + id + "&name=" + name + "&pic_x=" + mouseX + "&pic_y=" + mouseY + "&type=insert",
+                        cache: true,
+                        success: function(data){
+                            viewtag( id );
+                            $('#tagit').fadeOut();
+                        }
+                    });
+                });
+
+                // mouseover the tagboxes that is already there but opacity is 0.
+                $( '#tagbox' ).on( 'mouseover', '.tagview', function( ) {
+                    var pos = $( this ).position();
+                    $(this).css({ opacity: 1.0 }); // div appears when opacity is set to 1.
+                }).on( 'mouseout', '.tagview', function( ) {
+                    $(this).css({ opacity: 0.4 }); // hide the div by setting opacity to 0.
+                });
+            });
+        </script>
+        <div id="container" style="position:absolute;">
+            <div id="imgtag" style="border: 2px solid black;">
+            <?php
+                $sql    = "SELECT * FROM items WHERE id=9";
+                $qry    = mysql_query( $sql );
+                $rs     = mysql_fetch_array( $qry );
+
+                $file = 'http://192.168.220.160/groom/htdocs/' . $rs[13] . $rs[11] . $rs[12];
+            ?>
+            <img id="<?php echo $rs['id']; ?>" src="<?php echo $file;?>" style="max-width:1000px; width:100%; height:auto;"/>
+            <div id="tagbox" style="position:absolute; top:0px; left:0px;"></div>
+            </div>
+            <div id="taglist">
+                <ol></ol>
             </div>
         </div>
-
     <? endif ?>
-
-    <div>
-        Users:
-        <table>
-            <tr>
-            <?php
-                $columns = array( 'id', 'username', 'email', 'confirmed', 'usertype' );
-            ?>
-            <?php
-                foreach( $columns as $column ) {
-                    $row = "<td width='160px'>" . $column . "</td>";
-                    echo( $row );
-                }
-            ?>
-            </tr>
-
-            <?php
-                if (!empty($users)) {
-                    foreach($users as $user) {
-                        //$row = "<tr><td>" . $user['username'] . "</td></tr>";
-
-                        $row = "<tr>";
-
-                        foreach( $columns as $column ) {
-                            $row .= "<td width='160px'>" . $user[$column] . "</td>";
-                        }
-
-                        $row .= "</tr>";
-
-                        echo( $row );
-                    }
-                }
-            ?>
-        </table>
-    </div>
 <? endif; ?>

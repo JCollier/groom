@@ -96,12 +96,15 @@ class Ajax extends CI_Controller {
         $page   = $params_get_users['p'];
         $limit  = $params_get_users['n'];
         $sort   = $params_get_users['s'];
+        $method = (!empty($params_get_users['m']))
+            ? $params_get_users['m']
+            : null;
 
-        $data['method'] = 'get_item_upload_block';
+        $data['method'] = !empty($method)
+            ? $method
+            : 'get_item_upload_block';
 
         $logged_in = $this->session->userdata('logged_in');
-
-
 
         $valid_pages = array(
             '1' => 'more_info',
@@ -110,14 +113,18 @@ class Ajax extends CI_Controller {
             '4' => 'upload'
         );
 
-        $show_login_form = true;
-        $show_about_us = false;
+        $show_login_form    = true;
+        $show_about_us      = false;
+        $show_taglist       = ($method == 'taglist');
+        $show_savetag       = ($method == 'savetag');
+        $show_item_tagger   = ($method == 'tagger');
 
         $show_login_form    = (!($logged_in) && in_array($valid_pages[$page], array('upload','gifts')));
         $show_about_us      = in_array($valid_pages[$page], array('about'));
         $show_learn_more    = in_array($valid_pages[$page], array('more_info'));
         $show_upload        = in_array($valid_pages[$page], array('gifts'));
         $show_gifts         = in_array($valid_pages[$page], array('upload'));
+        $show_taglist       = ($method == 'taglist');
 
         if ($logged_in) {
             $show_login_form = false;
@@ -130,6 +137,10 @@ class Ajax extends CI_Controller {
         $data['show_learn_more']        = $show_learn_more;
         $data['show_upload']            = $show_upload;
         $data['show_gifts']             = $show_gifts;
+        $data['show_gifts']             = $show_gifts;
+        $data['show_taglist']           = $show_taglist;
+        $data['show_savetag']           = $show_savetag;
+        $data['show_item_tagger']       = $show_item_tagger;
 
         $this->file_upload_demo();
 
