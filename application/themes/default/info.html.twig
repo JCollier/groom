@@ -1,0 +1,43 @@
+{% block content %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+   <title>How It Works</title>
+    <script src="{{ js_path['global'] }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ css_path['global'] }}">
+    <link rel="stylesheet" type="text/css" href="{{ css_path['bootstrap'] }}">
+    <link rel="stylesheet" type="text/css" href="{{ css_path['bootstrap_theme'] }}">
+ </head>
+    <div class="">
+        <div class="navbar navbar-blend-top height-header width-full pos-float-left bg-success" role="navigation">
+            <div id="header_links" class="pos-float-right">
+                Header Links:
+                {% for link in links_header %}
+                    <a href="{{ link['url'] }}">{{ link['label']}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="container-home" class="bg-color-gray width-full pos-float-left">
+            <h2>Userid: {{ userid }}</h2>
+            <h2>Username: {{ username }}</h2>
+        </div>
+        <div class="col-xs-12">        
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+                {{ static_info }}
+            </div>
+            <div class="col-xs-2"></div>
+        </div>        
+        <div class="height-footer width-full pos-float-left bg-info" style="position:absolute; bottom:0;">
+            <div id="header_links" class="pos-float-right">
+                Footer Links:
+                {% for link in links_footer %}
+                    <a href="{{ link['url'] }}">{{ link['label']}}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

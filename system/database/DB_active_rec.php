@@ -2052,10 +2052,12 @@ class CI_DB_active_record extends CI_DB_driver {
 				$page_page = $page['page'];
 
 				$page_config[$page_page] = array( 
-					'page' 		=> $page_page,
-					'path' 		=> $page['path'],
-					'label' 	=> $page['label'],
-					'position' 	=> $page['position']
+					'page' 			=> $page_page,
+					'path' 			=> $page['path'],
+					'label' 		=> $page['label'],
+					'position' 		=> $page['position'],
+					'enable' 		=> $page['enable'],
+					'permissions' 	=> $page['permissions']
 				);
 			}
 		}
@@ -2070,12 +2072,10 @@ class CI_DB_active_record extends CI_DB_driver {
 		return null;
 	}
 
-	public function loadPageConfig( $permissions = 0 ) {
-		$permissions = 5;
-
-        $sql =  " SELECT `page`,`path`,`label`,`position` " . 
+	public function loadPageConfig() {
+        $sql =  " SELECT `page`,`path`,`label`,`position`,`enable`,`permissions` " . 
         		" FROM groom_common.pages " .
-        		" WHERE `enable`='1' AND `permissions`<={$permissions}" . 
+        		" WHERE `enable`='1' " . 
         		" ORDER BY `position` " .
                 ";";
 
@@ -2136,6 +2136,39 @@ class CI_DB_active_record extends CI_DB_driver {
 		else {
 			return null;
 		}
+	}
+
+	public function insertWithParams($database, $table, $params) 
+	{
+        $fields = "(";
+       	$values = "VALUES (";
+        $count  = max(count($params) - 1, 0);
+
+        foreach ($params as $field => $value) {
+            if ($count-- <= 0) {
+                $fields .= "`{$field}`)";
+
+				if (is_string($value)) {
+					$values .= "'{$value}')";
+				} else {
+					$values .= "{$value})";
+				}
+            } else {
+                $fields .= "`{$field}`,";
+
+				if (is_string($value)) {
+					$values .= "'{$value}',";
+				} else {
+					$values .= "{$value},";
+				}
+            }
+        }
+
+        $sql = "INSERT INTO `{$database}`.`{$table}` ";
+        $sql .= "{$fields} ";
+        $sql .= "{$values};";
+
+		$this->query($sql);
 	}
 }
 
